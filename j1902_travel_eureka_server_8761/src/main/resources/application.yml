@@ -1,0 +1,20 @@
+server:
+  port: 8761
+spring:
+  application:
+    name: xp-eureka-server
+eureka:
+  client:
+    service-url:
+      defaultZone: http://10.12.159.122:8761/eureka
+    fetch-registry: false #是否检索服务
+    register-with-eureka: false #启动服务注册
+    healthcheck:
+      enabled: true #服务中心对客户端健康检测的方式
+  instance:
+    hostname: localhost #当前实例的主机名称
+    lease-expiration-duration-in-seconds: 90
+    lease-renewal-interval-in-seconds: 60
+  server:
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 100000

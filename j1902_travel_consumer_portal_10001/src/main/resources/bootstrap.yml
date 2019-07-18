@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: consumer-portal
+  cloud:
+    config:
+      uri: http://10.12.159.122:9090
+      fail-fast: true
+  profiles:
+    active: xpfirst

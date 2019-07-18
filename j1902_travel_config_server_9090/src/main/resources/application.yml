@@ -1,0 +1,11 @@
+server:
+  port: 9090
+spring:
+  application:
+    name: xp-config-server
+  cloud:
+    config:
+      server:
+        git:
+          search-paths: myconfig
+          uri: https://github.com/820039396/j1902_travel.git
