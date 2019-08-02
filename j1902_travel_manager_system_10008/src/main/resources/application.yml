@@ -1,0 +1,17 @@
+
+server:
+  port: 10008
+spring:
+  application:
+    name: manager_system
+  mail:
+    default-encoding: UTF-8
+    username: 765681806@qq.com
+    password: qfvssbcaknasbcij
+    host: smtp.qq.com
+  thymeleaf:
+    cache: false
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8766/eureka

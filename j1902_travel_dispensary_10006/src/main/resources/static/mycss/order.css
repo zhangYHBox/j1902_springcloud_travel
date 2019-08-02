@@ -1,0 +1,42 @@
+.layui-input{
+    width: auto;
+}
+.layui-form-item{
+    margin-left: 80px;
+    margin-top: 20px;
+    border: 1px solid #dbdbdb;
+    background-color: rgb(255, 255, 255);
+    width: 1200px;
+    font-size: 16px;
+    padding: 15px 15px 15px 20px;
+    border: snow;
+}
+.bigdiv{
+    margin-left: 50px;
+    border: 1px solid #fcf8e3;
+    background-color: #e3e3e3;
+    float: left;
+    height: auto;
+    width: 1360px;
+}
+/*.bigdiv2{
+    border: 1px solid #fcf8e3;
+    background-color: #dbdbdb;
+    width: 200px;
+    height: 1100px;
+    float: left;
+    margin: 0px 0px 0px 30px;
+}*/
+#butdiv{
+    margin: 20px 0px 100px 300px;
+}
+input{
+    height: 27px;
+}
+ul,li {
+    list-style: none;
+}
+li{
+    float: left;
+    margin-left: 5px;
+}

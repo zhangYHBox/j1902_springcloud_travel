@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>travel_order</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="../layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="../mycss/order.css" >
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="../layui/layui.js" charset="utf-8"></script>
+</head>
+<body>
+<!--引入头部-->
+<div id="header">
+</div>
+        <!--<div class="top_banner">-->
+            <!--<img src="images/top_banner.jpg" alt="">-->
+        <!--</div>-->
+        <br/>
+    <div class="bigdiv">
+        <div class="layui-form-item">
+            <span>[日本大阪-京都-奈良-富士山-东京7日游]牛人严选 纯玩不进店 8人起成团 系统认证优质酒店 双点进出不走回头路 东阪各1天自由 11500日币特色餐</span><br/>
+            <span>编号：20190719</span>
+        </div>
+
+        <hr/>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">出发城市</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" id="city" name="origin" placeholder="北京"/>
+                </div>
+            </div><br/>
+            <div class="layui-inline">
+                <label class="layui-form-label">请选择日期</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" id="test6" name="start_date" placeholder="yyyy-MM-dd"/>
+                </div>
+            </div><br/>
+            <div class="layui-inline">
+                <label class="layui-form-label">请选择时间</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" name="time" id="test9" placeholder="HH:mm:ss"/>
+                </div>
+            </div><br/>
+            <div class="layui-inline">
+                <ul class="btn-numbox">
+                    <li><span class="layui-form-label">出游人数</span></li>
+                    <li>
+                        <ul class="count">
+                            <li> <button id="num-jian" type="button" class="layui-btn layui-btn-primary layui-btn-sm"><i class="layui-icon">-</i></button></li>
+                            <li><input type="text" class="layui-input" id="input-num" name="count" value="0" style="width: 30px;height: 30px" /></li>
+                            <li> <button id="num-jia" type="button" class="layui-btn layui-btn-primary layui-btn-sm"><i class="layui-icon"></i></button></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><br/>
+            <div class="layui-inline">
+                <label class="layui-form-label">使用行程</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" id="luxian" name="luxian" placeholder="路线A" />
+                </div>
+            </div><br/>
+        </div>
+
+        <div class="layui-form-item">
+            <form class="layui-form" action="">
+                <div >
+                    <span>联系人信息</span>
+                    <hr/><br/>
+                    <label class="layui-form-label">姓名:</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="contact" lay-verify="title" autocomplete="off" placeholder="请输入联系人" class="layui-input">
+                    </div><br/>
+                </div>
+                <div >
+                    <label class="layui-form-label">联系电话:</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="contact_tell" lay-verify="required" lay-reqtext="用户名是必填项，岂能为空？" placeholder="请输入联系电话" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="layui-form-item" id="maipiaodiv">
+            <div>
+                <span>· 请确认所填写信息与所持证件信息一致，因信息不完整，填写不正确造成的额外损失、保险拒赔等问题，我司不承担相应责任，需由客人自行承担。<br/>
+                    · 大于2周岁不满12周岁的儿童不可使用出生证明，请使用身份证、户口簿等，乘机请携带填写的相应证件。</span><br/>
+            </div>
+            <hr/>
+            <span>出游人信息</span>
+            <br/>
+            <hr/>
+            <div id="ticketdiv">
+                <div class="layui-inline">
+                    <label class="layui-form-label">中文姓名</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" id="loginname" name="loginname" placeholder="张三丰"/>
+                    </div>
+                </div><br/>
+                <div class="layui-inline">
+                    <label class="layui-form-label">联系电话</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" id="tell" name="login_tell" placeholder="13856452566" />
+                    </div>
+                </div><br/>
+                <div class="layui-inline">
+                    <label class="layui-form-label">身份证号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" id="idcard" name="idcard" placeholder="625462198706523564"/>
+                    </div>
+                </div><br/>
+                <div class="layui-inline">
+                    <label class="layui-form-label">年龄</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" id="age" name="age" placeholder="18"/>
+                    </div>
+                </div><br/>
+                <div class="layui-inline">
+                    <label class="layui-form-label">联动选择框</label>
+                    <div class="layui-input-inline">
+                        <select name="gender" class="layui-input">
+                            <option value="">请选择性别</option>
+                            <option value="man" selected="">男</option>
+                            <option value="woman">女</option>
+                        </select>
+                    </div>
+                </div><br/>
+            </div>
+        </div>
+
+        <div id="butdiv">
+            <button type="button" class="layui-btn layui-btn-radius" id="conmitbut">提交订单</button>
+        </div>
+    </div>
+   <!-- <div class="bigdiv2">
+        <span>资讯</span>
+    </div>-->
+    <!--导入底部-->
+<div id="footer"></div>
+
+<script src="../js/xijs/travel_order.js"></script>
+<script type="text/javascript" src="js/include.js"></script>
+</body>
+</html>

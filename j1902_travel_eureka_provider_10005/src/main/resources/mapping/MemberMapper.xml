@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qf.j1902.mapper.MemberMapper">
+    <resultMap id="memberMap" type="com.qf.j1902.pojo.Member">
+        <id property="id" column="id"/>
+        <result property="loginname" column="loginname"/>
+        <result property="password" column="password"/>
+        <result property="email" column="email"/>
+        <result property="username" column="username"/>
+        <result property="gender" column="gender"/>
+        <result property="birth" column="birth"/>
+        <result property="tel" column="tel"/>
+    </resultMap>
+    <insert id="addMember" parameterType="com.qf.j1902.pojo.Member">
+        INSERT INTO
+        member (loginname,password,email,username,gender,birth,tel)
+        VALUES (#{loginname},#{password},#{email},#{username},#{gender},#{birth},#{tel})
+    </insert>
+    <select id="getMemberByLoginname" parameterType="string" resultMap="memberMap">
+        SELECT *
+        FROM  member
+        WHERE loginname=#{loginname}
+    </select>
+</mapper>

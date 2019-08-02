@@ -1,0 +1,24 @@
+
+server:
+  port: 10010
+spring:
+  application:
+    name: travel-zuul
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8766/eureka
+zuul:
+  routes:
+    api-a:
+      path: /api-a/**
+      serviceId: dispensary
+#      static:
+#        path: static/*
+#        url: http://localhost:10006/static/
+    api-b:
+      path: /api-b/**
+      serviceId: manager_system
+#      static:
+#        path: static/*
+#        url: http://localhost:10008/static/

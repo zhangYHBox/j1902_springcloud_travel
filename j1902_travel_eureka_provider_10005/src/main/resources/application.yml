@@ -1,0 +1,24 @@
+
+server:
+  port: 10005
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8766/eureka
+spring:
+  application:
+    name: eureka-provicer
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/xiaoshu?characterEncoding=utf-8&serverTimezone=UTC
+    username: root
+    password:
+
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+    password:
+mybatis:
+  mapper-locations: classpath:mapping/*.xml
+  type-aliases-package: com.qf.j1902.pojo

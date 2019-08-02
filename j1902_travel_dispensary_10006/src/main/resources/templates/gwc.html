@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>购物车</title>
+    <style type="text/css">
+        table{
+            text-align: center;
+        }
+        tr{
+            height: 40px;
+            line-height: 40px;
+        }
+        tr:hover{
+            background: #eeeeee;
+        }
+        td input{
+            background: transparent;
+            width: 40px;
+            height: 20px;
+            line-height: 20px;
+            padding: 0;
+            border:none;
+            outline:none;
+            border-top: 1px solid gray;
+            border-bottom: 1px solid gray;
+            text-align: center;
+        }
+        td button{
+            width: 20px;
+            height: 22px;
+            border: 1px solid gray;
+            border-left: none;
+            cursor: pointer;
+            outline:none;
+            margin-left: -4px;
+        }
+        #reduce{
+            border-right: none;
+            border-left:1px solid gray;
+            margin-right: -5px;
+        }
+        span{
+            color: red;
+            font-size: 22px;
+        }
+        a{
+            text-decoration: none;
+            column-rule: red;
+        }
+    </style>
+</head>
+<body>
+<div ng-app="shop" ng-controller="shopping">
+    <table border="1" cellspacing="0" cellpadding="0" width="100%">
+        <caption style="font-size: 28px;">我的订单</caption>
+        <tr><th>序号</th><th>名称</th><th>单价</th><th>数量</th><th>小计</th><th>操作</th></tr>
+        <tr ng-repeat="item in products">
+            <td>{{item.uid}}</td>
+            <td>{{item.room}}</td>
+            <td>{{item.price}}</td>
+            <td>
+                <button ng-click="updatesum(item.numbers-1,item.uid)" id="reduce">-</button>
+                <input type="text" ng-model="item.numbers">
+                <button ng-click="updatesum(item.numbers+1,item.uid)">+</button>
+            </td>
+            <!--计算后保留后两位小数-->
+            <td>{{(item.numbers*item.price).toFixed(2)}}</td>
+            <td><a href="#" ng-click="remove(item.uid)">删除</a>&#12288;<a href="#" ng-click="edit(item.uid,item.room,item.price,item.numbers)">编辑</a></td>
+        </tr>
+        <tr>
+            <td colspan="6" align="right" style="padding: 0px 50px;">合计：<span ng-bind="total()"></span></td>
+        </tr>
+    </table>
+    <fieldset>
+        <legend>添加/修改</legend>
+        <input type="text" hidden="hidden" id="cid">
+        <p>
+            <label for="shopname">名称：</label>
+            <input type="text" id="shopname" placeholder="名称"/>
+        </p>
+        <p>
+            <label for="shopprice">价格：</label>
+            <input type="text" id="shopprice" placeholder="价格">
+        </p>
+        <p>
+            <label for="shopsum">数量：</label>
+            <input type="text" id="shopsum" placeholder="数量">
+        </p>
+        <p>
+            <button type="button" ng-click="insert()">添加</button>
+            <button type="button" ng-click="update()">修改</button>
+        </p>
+    </fieldset>
+</div>
+
+<script src="./lib/jquery-1.11.3.js" type="text/javascript" charset="utf-8"></script>
+<!--<script src="http://code.angularjs.org/1.2.25/angular.min.js"></script>-->
+<script src="../lib/angular.min.js"></script>
+<script type="text/javascript">
+    alert("aaa");
+    var app = angular.module('shop', []);//定义模块
+    app.controller('shopping', function($scope) {
+        //getAll
+        $scope.products=[];
+        function getAll(){
+            $.ajax({
+                url:'/getAll',
+                type:'post',
+                contentType: "application/json; charset=UTF-8",
+                success:function (data) {
+                   // $scope.products=data.data;
+                    console.log(data);
+                    $scope.products=data;
+                    $scope.$apply();
+                },error:function (xhr, textStatus, errorThrown,data) {
+                    console.log("错误，"+textStatus+","+errorThrown+data);
+                }
+            });
+        };
+        getAll();
+        //get count
+        $scope.total=function(){
+            var priceAll = 0;
+            for(var i= 0;i<$scope.products.length;i++){
+                priceAll+=$scope.products[i].shopprice*$scope.products[i].shopsum;
+            }
+            return priceAll.toFixed(2);
+        };
+        //delete
+        $scope.remove=function(index){
+            if(confirm('您确定要删除吗？')){
+                $.ajax({
+                    type: "post",
+                    url: '/ShopApi/deleteShop',
+                    data: {cid:index},
+                    success: function (data) {
+                        alert("删除成功！");
+                        getAll();
+                    },
+                    error:function (xhr, textStatus, errorThrown,data) {
+                        console.log("错误，"+textStatus+","+errorThrown+data);
+                    }
+                });
+            }
+        };
+        //updatesum
+        $scope.updatesum=function (sum,id) {
+            $.ajax({
+                url:'/ShopApi/updateSum',
+                type:'post',
+                data:{shopsum:sum,cid:id},
+                success:function (data) {
+                    getAll();
+                },
+                error:function (xhr, textStatus, errorThrown,data) {
+                    console.log("错误，"+textStatus+","+errorThrown+data);
+                }
+            });
+        };
+        //insert
+        $scope.insert=function () {
+            $.ajax({
+                url:'/ShopApi/insertShop',
+                type:"post",
+                data:{shopname:$("#shopname").val(),shopprice:$("#shopprice").val(), shopsum:$("#shopsum").val()},
+                success:function (data) {
+                    alert("添加成功！");
+                    getAll();
+                    $(":input").val('');
+                },
+                error:function (xhr, textStatus, errorThrown,data) {
+                    console.log("错误，"+textStatus+","+errorThrown+data);
+                    alert("添加失败！");
+                    console.log(shopdata);
+                }
+            });
+        };
+        //edit
+        $scope.edit=function(cid,shopname,shopprice,shopsum){
+            $("#cid").val(cid);
+            $("#shopname").val(shopname);
+            $("#shopprice").val(shopprice);
+            $("#shopsum").val(shopsum);
+        }
+        //update
+        $scope.update=function () {
+            $.ajax({
+                url:'/ShopApi/updateShop',
+                type:'post',
+                data:{cid:$("#cid").val(),shopname:$("#shopname").val(),shopprice:$("#shopprice").val(),shopsum:$("#shopsum").val()},
+                success:function (data) {
+                    alert("修改成功！");
+                    getAll();
+                    $(":input").val('');
+                },
+                error:function (xhr, textStatus, errorThrown,data) {
+                    console.log("错误，"+textStatus+","+errorThrown+data);
+                    alert("修改失败");
+                }
+            });
+        };
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title> contentEditable=true</title>
+    <link href="css/reset.css" rel="stylesheet">
+    <script src="js/xml.js"></script>
+    <style>
+        body,li,p,ul {
+            margin: 0;
+            padding: 0;
+            font: 12px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+        }
+        ul, li, ol { list-style: none; }
+        /* 重置文本格式元素 */
+        a { text-decoration: none; cursor: pointer; color:#333333; font-size:14px;}
+        a:hover { text-decoration: none; }
+        .clearfix::after{ display:block; content:''; height:0; overflow:hidden; clear:both;}
+        /*星星样式*/
+        .content{ width:600px; margin:0 auto; padding-top:20px;}
+        .title{ font-size:14px; background:#dfdfdf; padding:10px; margin-bottom:10px;}
+        .block{ width:100%; margin:0 0 20px 0; padding-top:10px; padding-left:50px; line-height:21px;}
+        .block .star_score{ float:left;}
+        .star_list{height:21px;margin:50px; line-height:21px;}
+        .block p,.block .attitude{ padding-left:20px; line-height:21px; display:inline-block;}
+        .block p span{ color:#C00; font-size:16px; font-family:Georgia, "Times New Roman", Times, serif;}
+        .star_score { background:url(images/stark2.png); width:160px; height:21px;  position:relative; }
+        .star_score a{ height:21px; display:block; text-indent:-999em; position:absolute;left:0;}
+        .star_score a:hover{ background:url(images/stars2.png);left:0;}
+        .star_score a.clibg{ background:url(images/stars2.png);left:0;}
+        #starttwo .star_score { background:url(images/starky.png);}
+        #starttwo .star_score a:hover{ background:url(images/starsy.png);left:0;}
+        #starttwo .star_score a.clibg{ background:url(images/starsy.png);left:0;}
+        /*星星样式*/
+        .show_number{ padding-left:50px; padding-top:20px;}
+        .show_number li{ width:240px; border:1px solid #ccc; padding:10px; margin-right:5px; margin-bottom:20px;}
+        .atar_Show{background:url(images/stark2.png); width:160px; height:21px;  position:relative; float:left; }
+        .atar_Show p{ background:url(images/stars2.png);left:0; height:21px; width:134px;}
+        .show_number li span{ display:inline-block; line-height:21px;}
+
+
+        .main{
+            width: 800px;
+            margin: auto;
+        }
+        span{
+            display: inline-block;
+            width: 200px;
+            height: 25px;
+            line-height: 25px;
+            vertical-align: center;
+            text-align: left;
+            margin-bottom: 10px;
+        }
+        .tag{
+            font-size: 13px;
+            margin-left: 370px;
+            vertical-align: bottom;
+            text-align: center;
+            margin-bottom: 0;
+        }
+        .text{
+            width: 750px;
+            height: 100px;
+            margin:0 auto;
+
+            resize:none;
+        }
+
+        input{
+            display: inline-block;
+            width: 50px;
+            height: 20px;
+            background: #E2526F;
+            border: 0;
+            margin-left: 670px;
+            margin-top: 10px;
+        }
+        .createdivz,.creatediv{
+            width: 675px;
+            height: 80px;
+            border: 1px solid gray;
+            position: relative;
+            margin-top: 10px;
+            padding-left: 75px;
+        }
+        .createinput{
+            width: 80px;
+            height: 30px;
+            position:absolute;
+            right: 5px;
+            bottom:5px;
+        }
+        .createtime{
+            width: 100px;
+            height: 25px;
+            position:absolute;
+            right: 50px;
+            bottom:5px;
+        }
+        .createimg{
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            top: 5px;
+            left: 15px;
+        }
+        .createnickname{
+            width: 100px;
+            height: 50px;
+            position: absolute;
+            top: 65px;
+            left: 15px;
+        }
+        .createdivs{
+            width:600px;
+            height:50px;
+            position: absolute;
+            top: 15px;
+            left: 85px;
+        }
+    </style>
+</head>
+
+<body id="body">
+<div class="art-content" style="background-color: #2aabd2">
+    <p class="switch-head-line">
+        <span class="mr" style="color: #080808;size:20px">游客点评</span>
+        <span class="mr" eval_data='4' onload="chooseEval(this)" th:text="'全部（'+${no4}+')'"><!--差评(1)--></span>
+        <span class="mr chooseActive" eval_data='1' onclick="chooseEval(this)" th:text="'好评（'+${no1}+')'"><!--好评--></span>
+        <span class="mr" eval_data='2' onclick="chooseEval(this)" th:text="'中评（'+${no2}+')'"><!--中评-->(0)</span>
+        <span class="mr" eval_data='3' onclick="chooseEval(this)" th:text="'差评（'+${no3}+')'"><!--差评(1)--></span>
+    </p>
+</div>
+
+
+
+
+<div class="main">
+    <div id="startone" class="block clearfix">
+        <div class="star_score"></div>
+        <p style="float:left;">您的评分：<span class="fenshu" id="starttwo"></span> 分</p>
+        <div class="attitude"></div>
+    </div>
+    <script type="text/javascript" src="js/startScore.js"></script>
+    <script>
+        scoreFun($("#startone"))
+        scoreFun($("#starttwo"),{
+            fen_d:22,//每一个a的宽度
+            ScoreGrade:5//a的个数 10或者
+        })
+    </script>
+    <span>请留下你宝贵的意见</span>
+    <span class="tag">你最多可以输入30个字符</span>
+    <textarea id="text" cols="30" rows="10" maxlength="30" class="text"></textarea><br>
+    <input  type="button" value="发 表" id="ipt">
+    <div id="txt" >
+    </div>
+</div>
+</body>
+<script>
+    var ipt = document.getElementById("ipt");
+    var txt = document.getElementById('txt');
+    var textarea = document.getElementById("text");
+    function chooseEval(obj){
+        // 点击高亮
+        $(obj).parent().find('span.chooseActive').removeClass('chooseActive');
+        $(obj).addClass('chooseActive');
+
+        // 点击评价时内容切换
+        var commenttype=$(obj).attr('eval_data')
+        alert(commenttype);
+        getEvalHtml(commenttype);
+    }
+    function getEvalHtml(commenttype){
+    $.ajax({
+        url:'/gocomment',
+        type:'post',
+        dataType:'json',
+        data:{type:commenttype},
+        success:function(data){
+            $('#txt').html("");
+            if(data.length>0){
+                for(var i=0;i<data.length;i++){
+                    var divs = document.createElement("div");
+                    var nicknames=document.createElement("p");
+                    var time = document.createElement("p");
+                    var imgs = document.createElement("img");
+                    var ps = document.createElement("p");
+                    var inputs = document.createElement("input");
+                    divs.setAttribute("class","creatediv");
+                    nicknames.setAttribute("class","createnickname");
+                    time.setAttribute("class","createtime");
+                    imgs.setAttribute('class',"createimg");
+                    ps.setAttribute("class","createdivs");
+                    inputs.setAttribute("class","createinput");
+                    nicknames.innerHTML=data[i].user.nickname;
+                    time.innerHTML=data[i].committime;
+                    imgs.src=data[i].headpic;
+                    imgs.alt='头像';
+                    inputs.type="button";
+                    inputs.value="回复";
+                    inputs.id="reply";
+                    inputs.onclick="reply()";
+                    ps.innerHTML=data[i].content;
+                    divs.appendChild(nicknames);
+                    divs.appendChild(time);
+                    divs.appendChild(imgs);
+                    divs.appendChild(ps);
+                    divs.appendChild(inputs);
+                    if(txt.children.length==0){
+                        txt.appendChild(divs);
+
+                    }else{
+                        txt.insertBefore(divs,get_firstChild(txt))
+                    }
+                }
+            }
+        }
+    })
+    }
+    $(document).on('click', '#reply', function(e) {
+        var divz = document.createElement('div');
+        divz.setAttribute("class","createdivz");
+       divz.innerHTML="在这里回复";
+        //动态插入到body中
+        alert("9876543")
+        if(txt.children.length==0){
+            txt.appendChild(divz);
+        }else{
+            txt.insertBefore(divz,get_firstChild(txt))
+        }
+    });
+    $(function(){
+        getEvalHtml(4);
+    });
+    //显示分数
+    $(".show_number li p").each(function(index, element) {
+        var num=$(this).attr("tip");
+        var www=num*2*16;//
+        $(this).css("width",www);
+        $(this).parent(".atar_Show").siblings("span").text(num+"分");
+    });
+    ipt.onclick = function(){
+        var starttwo=$("#starttwo").html();
+       alert(starttwo)
+        var textValue = textarea.value.LTrim();
+       var uid=2;
+       var sid=2;
+       $.ajax({
+           url:'goSaveComment',
+           type:'post',
+           dataType:'json',
+           data:{type:starttwo,
+               content:textValue,
+               uid:uid,
+               sid:sid},
+           success:function (data) {
+               if(data){
+            window.location.reload()
+               }
+           }
+       })
+    }
+</script>
+</html>

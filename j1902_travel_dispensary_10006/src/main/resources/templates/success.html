@@ -1,0 +1,244 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>支付成功</title>
+    <link href="../dingdan/css/public.css" type="text/css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../dingdan/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../dingdan/css/buyConfirm.css" />
+
+    <script type="text/javascript" src="../dingdan/js/jquery_cart.js"></script>
+    <script src="../dingdan/js/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="../dingdan/js/unslider.min.js" type="text/javascript"></script>
+    <script src="../dingdan/js/index.js" type="text/javascript"></script>
+    <script src="../dingdan/js/base.min.js" type="text/javascript"></script>
+    <script src="../dingdan/js/buyConfirm.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+        window.onload = function(){
+            new tab('test4-input-input_tab1-input_tab2', '-');
+        }
+        function tab(o, s, cb, ev){ //tab换类
+            var $ = function(o){return document.getElementById(o)};
+            var css = o.split((s||'_'));
+            if(css.length!=4)return;
+            this.event = ev || 'onclick';
+            o = $(o);
+            if(o){
+                this.ITEM = [];
+                o.id = css[0];
+                var item = o.getElementsByTagName(css[1]);
+                var j=1;
+                for(var i=0;i<item.length;i++){
+                    if(item[i].className.indexOf(css[2])>=0 || item[i].className.indexOf(css[3])>=0){
+                        if(item[i].className == css[2])o['cur'] = item[i];
+                        item[i].callBack = cb||function(){};
+                        item[i]['css'] = css;
+                        item[i]['link'] = o;
+                        this.ITEM[j] = item[i];
+                        item[i]['Index'] = j++;
+                        item[i][this.event] = this.ACTIVE;
+                    }
+                }
+                return o;
+            }
+        }
+        tab.prototype = {
+            ACTIVE:function(){
+                var $ = function(o){return document.getElementById(o)};
+                this['link']['cur'].className = this['css'][3];
+                this.className = this['css'][2];
+                try{
+                    $(this['link']['id']+'_'+this['link']['cur']['Index']).style.display = 'none';
+                    $(this['link']['id']+'_'+this['Index']).style.display = 'block';
+                }catch(e){}
+                this.callBack.call(this);
+                this['link']['cur'] = this;
+            }
+        }
+        function indes() {
+            window.location.href="index.html";
+        }
+    </script>
+</head>
+
+<body>
+<!--顶部快捷菜单-->
+<div class="shortcut_v2013 alink_v2013">
+    <div class="w">
+        <ul class="fl 1h">
+            <li class="fl">
+                <div class="menu">
+                    <div class="menu_hd">
+                        <a href="#">
+                            <img src="../dingdan/images/top_phone_icon.png" width="12px" height="16px" />
+                            行者旅行
+                        </a>
+                        <b><em></em></b></div>
+                    <div class="menu_bd">
+                        <ul>
+                            <li><a href="#">App For Android</a></li>
+                            <li><a href="#">App For IOS</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li class="fl"><i class="shortcut_s"></i></li>
+            <li class="fl"><div class="menu_hd">您好，欢迎来到行者旅游！</div></li>
+            <li class="fl"><div class="menu_hd"><a href="#">请登录</a></div></li>
+            <li class="fl"><div class="menu_hd"><a href="#">免费注册</a></div></li>
+        </ul>
+        <ul class="fr 1h">
+            <li class="fl"><div class="menu_hd"><a href="#">我的订单</a></div></li>
+            <li class="fl"><i class="shortcut_s"></i></li>
+            <li class="fl"><div class="menu_hd"><a href="#">个人中心</a></div></li>
+            <li class="fl"><i class="shortcut_s"></i></li>
+            <li class="fl"><div class="menu_hd"><a href="#">服务中心</a></div></li>
+            <li class="fl"><i class="shortcut_s"></i></li>
+            <li class="fl"><div class="menu_hd"><a href="#">商家入驻</a></div></li>
+            <li class="fl"><i class="shortcut_s"></i></li>
+            <li class="fl">
+                <div class="menu">
+                    <div class="menu_hd"><a href="#">网站导航</a><b><em></em></b></div>
+                    <div class="menu_bd">
+                        <ul>
+                            <li><a href="#">网站导航</a></li>
+                            <li><a href="#">网站导航</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <span class="clr"></span>
+    </div>
+</div>
+<!--顶部快捷菜单-->
+
+
+<!--订单提交body部分开始-->
+
+
+<div class="border_top_cart">
+
+    <div class="container payment-con">
+        <form  target="_blank" action="#" id="pay-form" method="post">
+            <div class="order-info">
+                <div class="msg">
+                    <h3>恭喜您！付款成功咯～</h3>
+                    <p></p>
+
+                    <p class="post-date">精彩的旅途从此出发</p>
+                </div>
+                <div class="info">
+                    <p>
+                        金额：<span class="pay-total">1999.00元</span>
+                    </p>
+                    <p>
+                        订单：1150505740045173                    </p>
+                    <p>
+                        配送：潘骏杰                                    <span class="line">/</span>
+                        159****6437                                    <span class="line">/</span>
+                        江苏,无锡市,北塘区 民丰西苑82号202室                                                                <span class="line">/</span>
+                        不限送货时间                                    <span class="line">/</span>
+                        个人电子发票                                                    </p>
+                </div>
+                <div class="icon-box">
+                    <i class="iconfont"><img src="../dingdan/images/yes_ok.png"></i>
+                </div>
+            </div>
+
+            <div class="xm-plain-box">
+                <!-- 选择支付方式 -->
+                <div class="box-ft clearfix">
+                    <input class="btn btn-primary" value="完成" id="payBtn" onclick="indes()">
+                    <a href="#" class="btn btn-lineDakeLight">取消订单</a>
+                    <span class="tip"></span>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- 支付弹框 -->
+    <div class="modal hide to-pay-tip" id="toPayTip">
+        <div class="modal-header">
+        <span class="close" id="toPayTipClose">
+            <i class="iconfont">&#xe617;</i>
+        </span>
+            <h3>正在支付...</h3>
+        </div>
+        <div class="modal-body">
+            <div class="pay-tip clearfix">
+                <div class="fail">
+                    <h4>如果支付失败...</h4>
+                    <p>额度问题，推荐<a href="#" id="alipayTrigger">支付宝快捷支付 &gt;</a></p>
+                    <p>其他问题，查看<a href="#">支付常见问题 &gt;</a></p>
+                </div>
+                <div class="success">
+                    <h4>支付成功了</h4>
+                    <p>立即查看<a href="#" target="_blank">订单详情 &gt;</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 余额支付弹框 -->
+    <div class="modal hide  balance-pay" id="balancePay">
+        <div class="modal-body">
+            <h3>账户余额支付：<span class="num"><em id="useCashAccountPayLeft">0.00</em>元</span></h3>
+            <p id="checkCodeTip">短信验证码已下发至您的手机<span class="num"></span></p>
+            <input type="text" name="verifycode" id="verifycode" class="input" placeholder="请输入验证码"> <span class="send-again" id="sendAgain">重新发送<em></em></span>
+            <p><input type="button" value="确认支付" class="btn btn-primary" id="toPay">
+                <div class="select-other">
+            <p><span id="bankName"></span> <span class="num">49.00元</span></p>
+
+        </div>
+        <a href="javascript:;" id="chooseOther">选择其他方式支付&gt;</a>
+    </div>
+
+</div>
+
+
+
+<script src="js/base.min.js"></script>
+
+<script type="text/javascript" src="js/buyConfirm.js"></script>
+
+</div>
+
+
+<!--订单提交body部分结束-->
+
+
+
+<!-- 底部 -->
+<div class="promise_box">
+    <div class="w">
+        <ul>
+            <li><img src="../dingdan/images/promise_img01.jpg"><span>365天不打烊</span></li>
+            <li><img src="../dingdan/images/promise_img02.jpg"><span>无理由退换货</span></li>
+            <li><img src="../dingdan/images/promise_img03.jpg"><span>担保交易</span></li>
+            <li><img src="../dingdan/images/promise_img04.jpg"><span>先行赔付</span></li>
+            <li><img src="../dingdan/images/promise_img05.jpg"><span>支持定制</span></li>
+        </ul>
+    </div>
+</div>
+<div class="footer_v2013 bottom-about">
+    <div class="w">
+        <p class="foot_p1">
+            <a href="#">首页</a>|<a href="#">招聘英才</a>|<a href="#">广告合作</a>|<a href="#">联系我们</a>|<a href="#">关于我们</a>
+        </p>
+        <pre>
+    经营许可证：苏B2-20130223备案许可证：苏ICP备13041162号-1360网站安全检测平台
+    ©2013-2014 无锡太湖云电商网络科技发展有限公司   版权所有
+                </pre>
+    </div>
+</div>
+<!-- 底部 -->
+<div class="fixed-buttons">
+    <ul>
+        <li><a href="#" class="fixed-weixin"><img src="../dingdan/images/icon_weixin.png" /><div class="weixin-pic"><img src="../dingdan/images/weixin_big.jpg"></div></a></li>
+        <li><img id="imgBtn-to-top" src="../dingdan/images/back_top.png" /></li>
+    </ul>
+</div>
+
+</body>
+</html>

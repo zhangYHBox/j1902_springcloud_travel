@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>路线详情</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/common.css"/>
+    <link rel="stylesheet" href="../css/style1.css"/>
+    <link rel="stylesheet" href="../css/comment1.css"/>
+    <link rel="stylesheet" type="text/css" href="css/route-detail.css"/>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<style>
+    .pinglunclass{
+        background-color: #2DBB55;
+        color: #fff;
+        font-size: 18px;
+    }
+    .video{
+        background-image: url("https://www.chimelong.com/Images/new_total/ba_index5.jpg");
+        width:1349px;
+        height: 345px;
+    }
+     .videolist { position:relative; width:500px; height:300px; margin-right:50px; margin-top:15px; margin-bottom:30px; }
+     .videolist:hover{ cursor: pointer; }
+     .videoed { display:none; width:50px; height:50px; position: absolute; left:45%; top:45%; z-index:99; border-radius:100%; }
+     .videos{ display:none; border: 1px solid #080808; position:fixed; left:50%; top:50%; margin-left:-320px; margin-top:-210px; z-index:100; width:640px; height:360px; }
+      .vclose {
+          position:absolute;right:1%; top:1%; border-radius:100%; cursor: pointer;
+      }
+
+    ul,
+    ol {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    ul li {
+        float: left;
+        height: 30px;
+        padding: 0 16px;
+        cursor: pointer;
+    }
+    ol {
+        padding: 6px;
+    }
+    .hide {
+        display: none;
+    }
+    .show {
+        display: block;
+    }
+    .normal {
+        color: black;
+        background: #ddd;
+        border: 1px solid #abcdef;
+        border-bottom: 0;
+    }
+    .hover {
+        color: #fff;
+        background: #abcdef;
+        border: 1px solid #abcdef;
+        border-bottom: 0;
+    }
+    .XSDFXPage {
+        width: 920px;
+        height: 500px;
+    }
+    /*去除百度LOGO*/
+      .BMap_cpyCtrl{
+          display:none;
+      }
+    .anchorBL{
+        display:none;
+      }
+</style>
+<body>
+<!--引入头部-->
+<div id="header"></div>
+    <!-- 详情 start -->   
+    <div class="wrap">
+        <div class="bread_box">
+            <a href="/">首页</a>
+            <span> &gt;</span>
+            <a href="#">国内游</a><span> &gt;</span>
+            <a href="#">全国 <td th:text="${city1}">泰国</td>出境旅游 特价往返机票自由行二次确认</a>
+        </div>
+        <div class="prosum_box">
+            <dl class="prosum_left">
+                <dt>
+                    <img alt="" class="big_img" th:src="${session.hotel.himg}" src="http://m.tuniucdn.com/fb2/t1/G1/M00/9C/5D/Cii-U1i_YD2IPwDlAADdJqfEp5gAAIiXQM66OQAAN0-522_w640_h480_c1_t0.jpg">
+                </dt>
+                <dd>
+                    <a class="up_img up_img_disable"></a>
+                    <a title="" class="little_img" data-bigpic="http://m.tuniucdn.com/fb2/t1/G3/M00/36/0F/Cii_NllkR_-IK7nkAAF5Fsqi6JcAADN2gA5K0YAAXku186_w640_h480_c1_t0.jpg">
+                        <img src="http://m.tuniucdn.com/fb2/t1/G3/M00/36/0F/Cii_NllkR_-IK7nkAAF5Fsqi6JcAADN2gA5K0YAAXku186_w640_h480_c1_t0.jpg">
+                    </a>
+                    <a title="" class="little_img cur_img" data-bigpic="http://m.tuniucdn.com/filebroker/cdn/res/69/51/6951ee0446bfb32b11ba5a9eabc148b7_w450_h300_c1_t0.jpg">
+                        <img src="http://m.tuniucdn.com/filebroker/cdn/res/69/51/6951ee0446bfb32b11ba5a9eabc148b7_w450_h300_c1_t0.jpg">
+                    </a>
+                    <a title="" class="little_img" data-bigpic="http://m.tuniucdn.com/fb2/t1/G5/M00/4A/72/Cii-tFppzh6IG4jeAAFGi6qUxP4AAC0xgLxrpEAAUaj945_w450_h300_c1_t0.jpg">
+                        <img src="http://m.tuniucdn.com/fb2/t1/G5/M00/4A/72/Cii-tFppzh6IG4jeAAFGi6qUxP4AAC0xgLxrpEAAUaj945_w450_h300_c1_t0.jpg">
+                    </a>
+                    <a title="" class="little_img" data-bigpic="http://m.tuniucdn.com/fb2/t1/G5/M00/14/EB/Cii-tFo0VAmIPPitAAF7YuJ9BDgAAA3NQHbjOUAAXt6346_w450_h300_c1_t0.jpg">
+                        <img src="http://m.tuniucdn.com/fb2/t1/G5/M00/14/EB/Cii-tFo0VAmIPPitAAF7YuJ9BDgAAA3NQHbjOUAAXt6346_w450_h300_c1_t0.jpg">
+                    </a>
+                    <a title="" class="little_img" data-bigpic="http://m.tuniucdn.com/fb2/t1/G2/M00/00/79/Cii-TFk7XKuIf9EjAAEzgvU6mPMAALsBwFUrmsAATOa298_w450_h300_c1_t0.jpg" style="display:none;">
+                        <img src="http://m.tuniucdn.com/fb2/t1/G2/M00/00/79/Cii-TFk7XKuIf9EjAAEzgvU6mPMAALsBwFUrmsAATOa298_w450_h300_c1_t0.jpg">
+                    </a>
+                    <a title="" class="little_img" data-bigpic="http://m.tuniucdn.com/fb2/t1/G2/M00/00/79/Cii-Tlk7XKyIbjymAADyGT-BEH0AALsBwFXf2gAAPIx766_w450_h300_c1_t0.jpg" style="display:none;">
+                        <img src="http://m.tuniucdn.com/fb2/t1/G2/M00/00/79/Cii-Tlk7XKyIbjymAADyGT-BEH0AALsBwFXf2gAAPIx766_w450_h300_c1_t0.jpg">
+                    </a>
+                    <a class="down_img down_img_disable" style="margin-bottom: 0;"></a>
+                </dd>
+            </dl>
+            <div class="prosum_right">
+                <p class="pros_title" th:text="${session.hotel.hname}">【尾单特卖 泰国旅游 特价往返机票自由行二次确认</p>
+                <p class="hot" th:text="${session.hotel.intro}" >1-2月出发，网付立享￥1099/2人起！爆款位置有限，抢完即止！</p>
+                <div class="pros_other">
+                    <p>经营商家  ：la国旅</p>
+                    <p>咨询电话 : 400-618-9090</p>
+                    <p>地址 ：龙山路277号,近凤凰山 </p>
+                </div>
+                <div class="pros_price">
+                    <p class="price"><strong th:text="${session.hotel.hprice}">¥2699.00</strong><span>起</span></p>
+                    <p class="collect">
+                        <a class="btn" href="tavern"><i class="glyphicon glyphicon-heart-empty"></i>加入购物车</a>
+
+                        <a  class="btn already" disabled="disabled"><i class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>
+                        <span>已收藏100次</span>
+                    </p>
+                </div>        
+            </div>
+        </div>
+
+
+        <div class="tabClass">
+            <ul>
+                <li>评论区</li>
+                <li>视频介绍</li>
+                <li>位置与周边</li>
+                <li>旅游须知</li>
+            </ul>
+            <ol>
+                <li>
+                <!--评论区-->
+                <center>
+                    <div class="pinglunclass">评论区</div>
+                    <input type="hidden" id="pinglunId" th:value="${session.uname}" />
+                </center>
+                <div class="commentAll">
+                    <!--评论区域 begin-->
+                    <div class="reviewArea clearfix">
+                        <textarea class="content comment-input" placeholder="Please enter a comment&hellip;" onkeyup="keyUP(this)"></textarea>
+                        <a href="javascript:;" class="plBtn">评论</a>
+                    </div>
+                    <!--评论区域 end-->
+
+                    <!--回复区域 begin-->
+                    <div class="comment-show">
+                        <div class="comment-show-con clearfix">
+                            <div class="comment-show-con-img pull-left"><img src="images/header-img-comment_03.png" alt=""></div>
+                            <div class="comment-show-con-list pull-left clearfix">
+                                <div class="pl-text clearfix">
+                                    <a href="#" class="comment-size-name">toney : </a>
+                                    <span class="my-pl-con">&nbsp;很好!</span>
+                                </div>
+                                <div class="date-dz">
+                                    <span class="date-dz-left pull-left comment-time">2017-5-2 11:11:39</span>
+                                    <div class="date-dz-right pull-right comment-pl-block">
+                                        <a href="javascript:;" class="removeBlock">删除</a>
+                                        <a href="javascript:;" class="date-dz-pl pl-hf hf-con-block pull-left">回复</a>
+                                        <span class="pull-left date-dz-line">|</span>
+                                        <a href="javascript:;" class="date-dz-z pull-left"><i class="date-dz-z-click-red"></i>赞 (<i class="z-num">666</i>)</a>
+                                    </div>
+                                </div>
+                                <div class="hf-list-con"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--回复区域 end-->
+                </div>
+                </li>
+                <li>
+                    <center>
+                        <div class="video">
+                            <div class="container" style="margin-top: 100px">
+                                <div class="videolist" vpath="v1.jpg" ipath="https://promotion.chimelong.com/zindex_video10.mp4">
+                                    <div class="vtit">视频</div>
+                                    <img src="img/v1.jpg" width="540px" height="300px" />
+                                    <img src="img/play.png" class="videoed"/>
+                                </div>
+                                <div class="videos"></div>
+                            </div>
+                        </div>
+                    </center>
+                </li>
+                <li>
+                    <div id="XSDFXPage" class="XSDFXPage"></div>
+                    <input type="hidden" class="city1class" th:value="${city1}"/>
+                </li>
+                <li>
+                    <div class="you_need_konw">
+                        <span>旅游须知</span>
+                        <div class="notice">
+                            <p>1、旅行社已投保旅行社责任险。建议游客购买旅游意外保险 <br>
+
+                            <p>2、旅游者参加打猎、潜水、海边游泳、漂流、滑水、滑雪、滑草、蹦极、跳伞、滑翔、乘热气球、骑马、赛车、攀岩、水疗、水上飞机等属于高风险性游乐项目的，敬请旅游者务必在参加前充分了解项目的安全须知并确保身体状况能适应此类活动；如旅游者不具备较好的身体条件及技能，可能会造成身体伤害。</p>
+
+                            <p>3、参加出海活动时，请务必穿着救生设备。参加水上活动应注意自己的身体状况，有心脏病、冠心病、高血压、感冒、发烧和饮酒及餐后不可以参加水上活动及潜水。在海里活动时，严禁触摸海洋中各种鱼类，水母，海胆，珊瑚等海洋生物，避免被其蛰伤。老人和小孩必须有成年人陪同才能参加合适的水上活动。在海边游玩时，注意保管好随身携带的贵重物品。</p>
+
+                            <p>4、根据中国海关总署的规定，旅客在境外购买的物品，在进入中国海关时可能需要征收关税。详细内容见《中华人民共和国海关总署公告2010年第54号文件》。</p>
+
+                            <p>5、建议出发时行李托运，贵重物品、常用物品、常用药品、御寒衣物等请随身携带，尽量不要托运。行李延误属于不可抗力因素，我司将全力协助客人跟进后续工作，但我司对此不承担任何责任。</p>
+                            <p>1、旅行社已投保旅行社责任险。建议游客购买旅游意外保险 <br>
+
+                            <p>2、旅游者参加打猎、潜水、海边游泳、漂流、滑水、滑雪、滑草、蹦极、跳伞、滑翔、乘热气球、骑马、赛车、攀岩、水疗、水上飞机等属于高风险性游乐项目的，敬请旅游者务必在参加前充分了解项目的安全须知并确保身体状况能适应此类活动；如旅游者不具备较好的身体条件及技能，可能会造成身体伤害。</p>
+
+                            <p>3、参加出海活动时，请务必穿着救生设备。参加水上活动应注意自己的身体状况，有心脏病、冠心病、高血压、感冒、发烧和饮酒及餐后不可以参加水上活动及潜水。在海里活动时，严禁触摸海洋中各种鱼类，水母，海胆，珊瑚等海洋生物，避免被其蛰伤。老人和小孩必须有成年人陪同才能参加合适的水上活动。在海边游玩时，注意保管好随身携带的贵重物品。</p>
+
+                            <p>4、根据中国海关总署的规定，旅客在境外购买的物品，在进入中国海关时可能需要征收关税。详细内容见《中华人民共和国海关总署公告2010年第54号文件》。</p>
+
+                            <p>5、建议出发时行李托运，贵重物品、常用物品、常用药品、御寒衣物等请随身携带，尽量不要托运。行李延误属于不可抗力因素，我司将全力协助客人跟进后续工作，但我司对此不承担任何责任。</p>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+        </div>
+
+      <!--  &lt;!&ndash;评论区&ndash;&gt;
+        <center>
+            <div class="pinglunclass">评论区</div>
+            <input type="hidden" id="pinglunId" th:value="${session.uname}" />
+        </center>
+        <div class="commentAll">
+            &lt;!&ndash;评论区域 begin&ndash;&gt;
+            <div class="reviewArea clearfix">
+                <textarea class="content comment-input" placeholder="Please enter a comment&hellip;" onkeyup="keyUP(this)"></textarea>
+                <a href="javascript:;" class="plBtn">评论</a>
+            </div>
+            &lt;!&ndash;评论区域 end&ndash;&gt;
+
+            &lt;!&ndash;回复区域 begin&ndash;&gt;
+            <div class="comment-show">
+                <div class="comment-show-con clearfix">
+                    <div class="comment-show-con-img pull-left"><img src="images/header-img-comment_03.png" alt=""></div>
+                    <div class="comment-show-con-list pull-left clearfix">
+                        <div class="pl-text clearfix">
+                            <a href="#" class="comment-size-name">toney : </a>
+                            <span class="my-pl-con">&nbsp;很好!</span>
+                        </div>
+                        <div class="date-dz">
+                            <span class="date-dz-left pull-left comment-time">2017-5-2 11:11:39</span>
+                            <div class="date-dz-right pull-right comment-pl-block">
+                                <a href="javascript:;" class="removeBlock">删除</a>
+                                <a href="javascript:;" class="date-dz-pl pl-hf hf-con-block pull-left">回复</a>
+                                <span class="pull-left date-dz-line">|</span>
+                                <a href="javascript:;" class="date-dz-z pull-left"><i class="date-dz-z-click-red"></i>赞 (<i class="z-num">666</i>)</a>
+                            </div>
+                        </div>
+                        <div class="hf-list-con"></div>
+                    </div>
+                </div>
+            </div>
+            &lt;!&ndash;回复区域 end&ndash;&gt;
+        </div>
+-->
+    <!--    <center>
+        <div class="video">
+            <div class="container" style="margin-top: 100px">
+                <div class="videolist" vpath="v1.jpg" ipath="https://promotion.chimelong.com/zindex_video10.mp4">
+                    <div class="vtit">视频</div>
+                    <img src="../img/v1.jpg" width="540px" height="300px" />
+                    <img src="../img/play.png" class="videoed"/>
+                </div>
+                <div class="videos"></div>
+            </div>
+        </div>
+        </center>-->
+
+
+
+       <!-- <div class="you_need_konw">
+            <span>旅游须知</span>
+            <div class="notice">
+                <p>1、旅行社已投保旅行社责任险。建议游客购买旅游意外保险 <br>
+
+                <p>2、旅游者参加打猎、潜水、海边游泳、漂流、滑水、滑雪、滑草、蹦极、跳伞、滑翔、乘热气球、骑马、赛车、攀岩、水疗、水上飞机等属于高风险性游乐项目的，敬请旅游者务必在参加前充分了解项目的安全须知并确保身体状况能适应此类活动；如旅游者不具备较好的身体条件及技能，可能会造成身体伤害。</p>
+
+                <p>3、参加出海活动时，请务必穿着救生设备。参加水上活动应注意自己的身体状况，有心脏病、冠心病、高血压、感冒、发烧和饮酒及餐后不可以参加水上活动及潜水。在海里活动时，严禁触摸海洋中各种鱼类，水母，海胆，珊瑚等海洋生物，避免被其蛰伤。老人和小孩必须有成年人陪同才能参加合适的水上活动。在海边游玩时，注意保管好随身携带的贵重物品。</p>
+
+                <p>4、根据中国海关总署的规定，旅客在境外购买的物品，在进入中国海关时可能需要征收关税。详细内容见《中华人民共和国海关总署公告2010年第54号文件》。</p>
+
+                <p>5、建议出发时行李托运，贵重物品、常用物品、常用药品、御寒衣物等请随身携带，尽量不要托运。行李延误属于不可抗力因素，我司将全力协助客人跟进后续工作，但我司对此不承担任何责任。</p>
+                <p>1、旅行社已投保旅行社责任险。建议游客购买旅游意外保险 <br>
+
+                <p>2、旅游者参加打猎、潜水、海边游泳、漂流、滑水、滑雪、滑草、蹦极、跳伞、滑翔、乘热气球、骑马、赛车、攀岩、水疗、水上飞机等属于高风险性游乐项目的，敬请旅游者务必在参加前充分了解项目的安全须知并确保身体状况能适应此类活动；如旅游者不具备较好的身体条件及技能，可能会造成身体伤害。</p>
+
+                <p>3、参加出海活动时，请务必穿着救生设备。参加水上活动应注意自己的身体状况，有心脏病、冠心病、高血压、感冒、发烧和饮酒及餐后不可以参加水上活动及潜水。在海里活动时，严禁触摸海洋中各种鱼类，水母，海胆，珊瑚等海洋生物，避免被其蛰伤。老人和小孩必须有成年人陪同才能参加合适的水上活动。在海边游玩时，注意保管好随身携带的贵重物品。</p>
+
+                <p>4、根据中国海关总署的规定，旅客在境外购买的物品，在进入中国海关时可能需要征收关税。详细内容见《中华人民共和国海关总署公告2010年第54号文件》。</p>
+
+                <p>5、建议出发时行李托运，贵重物品、常用物品、常用药品、御寒衣物等请随身携带，尽量不要托运。行李延误属于不可抗力因素，我司将全力协助客人跟进后续工作，但我司对此不承担任何责任。</p>
+            </div>           
+        </div>-->
+    </div>
+    <!-- 详情 end -->
+
+    <!--引入头部-->
+    <div id="footer"></div>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-3.3.1.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <!--导入布局js，共享header和footer-->
+    <script type="text/javascript" src="js/include.js"></script>
+<script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
+<script type="text/javascript" src="js/jquery.flexText.js"></script>
+    <script>
+    $(document).ready(function() {
+        //焦点图效果
+        //点击图片切换图片
+        $('.little_img').on('mousemove', function() {
+            $('.little_img').removeClass('cur_img');
+            var big_pic = $(this).data('bigpic');
+            $('.big_img').attr('src', big_pic);
+            $(this).addClass('cur_img');
+        });
+           //上下切换
+        var picindex = 0;
+        var nextindex = 4;
+        $('.down_img').on('click',function(){
+            var num = $('.little_img').length;
+            if((nextindex + 1) <= num){
+                $('.little_img:eq('+picindex+')').hide();
+                $('.little_img:eq('+nextindex+')').show();
+                picindex = picindex + 1;
+                nextindex = nextindex + 1;
+            }
+        });
+        $('.up_img').on('click',function(){
+            var num = $('.little_img').length;
+            if(picindex > 0){
+                $('.little_img:eq('+(nextindex-1)+')').hide();
+                $('.little_img:eq('+(picindex-1)+')').show();
+                picindex = picindex - 1;
+                nextindex = nextindex - 1;
+            }
+        });
+        //自动播放
+        // var timer = setInterval("auto_play()", 5000);
+    });
+
+    //自动轮播方法
+    function auto_play() {
+        var cur_index = $('.prosum_left dd').find('a.cur_img').index();
+        cur_index = cur_index - 1;
+        var num = $('.little_img').length;
+        var max_index = 3;
+        if ((num - 1) < 3) {
+            max_index = num - 1;
+        }
+        if (cur_index < max_index) {
+            var next_index = cur_index + 1;
+            var big_pic = $('.little_img:eq(' + next_index + ')').data('bigpic');
+            $('.little_img').removeClass('cur_img');
+            $('.little_img:eq(' + next_index + ')').addClass('cur_img');
+            $('.big_img').attr('src', big_pic);
+        } else {
+            var big_pic = $('.little_img:eq(0)').data('bigpic');
+            $('.little_img').removeClass('cur_img');
+            $('.little_img:eq(0)').addClass('cur_img');
+            $('.big_img').attr('src', big_pic);
+        }
+    }
+    </script>
+
+
+<!--评论的js代码-->
+<!--textarea高度自适应-->
+<script type="text/javascript">
+    $(function () {
+        $('.content').flexText();
+    });
+</script>
+<!--textarea限制字数-->
+<script type="text/javascript">
+    function keyUP(t){
+        var len = $(t).val().length;
+        if(len > 139){
+            $(t).val($(t).val().substring(0,140));
+        }
+    }
+</script>
+<!--点击评论创建评论条-->
+<script type="text/javascript">
+    $('.commentAll').on('click','.plBtn',function(){
+        var myDate = new Date();
+        //获取当前年
+        var year=myDate.getFullYear();
+        //获取当前月
+        var month=myDate.getMonth()+1;
+        //获取当前日
+        var date=myDate.getDate();
+        var h=myDate.getHours();       //获取当前小时数(0-23)
+        var m=myDate.getMinutes();     //获取当前分钟数(0-59)
+        if(m<10) m = '0' + m;
+        var s=myDate.getSeconds();
+        if(s<10) s = '0' + s;
+        var now=year+'-'+month+"-"+date+" "+h+':'+m+":"+s;
+        //获取输入内容
+        var oSize = $(this).siblings('.flex-text-wrap').find('.comment-input').val();
+        console.log(oSize);
+        //动态创建评论模块
+        oHtml = '<div class="comment-show-con clearfix"><div class="comment-show-con-img pull-left"><img src="images/header-img-comment_02.png" alt=""></div> <div class="comment-show-con-list pull-left clearfix"><div class="pl-text clearfix"> <a href="#" class="comment-size-name">匿名用户 : </a> <span class="my-pl-con">&nbsp;'+ oSize +'</span> </div> <div class="date-dz"> <span class="date-dz-left pull-left comment-time">'+now+'</span> <div class="date-dz-right pull-right comment-pl-block"><a href="javascript:;" class="removeBlock">删除</a> <a href="javascript:;" class="date-dz-pl pl-hf hf-con-block pull-left">回复</a> <span class="pull-left date-dz-line">|</span> <a href="javascript:;" class="date-dz-z pull-left"><i class="date-dz-z-click-red"></i>赞 (<i class="z-num">666</i>)</a> </div> </div><div class="hf-list-con"></div></div> </div>';
+        if(oSize.replace(/(^\s*)|(\s*$)/g, "") != ''){
+            $(this).parents('.reviewArea ').siblings('.comment-show').prepend(oHtml);
+            $(this).siblings('.flex-text-wrap').find('.comment-input').prop('value','').siblings('pre').find('span').text('');
+        }
+    });
+</script>
+<!--点击回复动态创建回复块-->
+<script type="text/javascript">
+    $('.comment-show').on('click','.pl-hf',function(){
+        //获取回复人的名字
+        var fhName = $(this).parents('.date-dz-right').parents('.date-dz').siblings('.pl-text').find('.comment-size-name').html();
+        //回复@
+        var fhN = '回复@'+fhName;
+        //var oInput = $(this).parents('.date-dz-right').parents('.date-dz').siblings('.hf-con');
+        var fhHtml = '<div class="hf-con pull-left"> <textarea class="content comment-input hf-input" placeholder="" onkeyup="keyUP(this)"></textarea> <a href="javascript:;" class="hf-pl">评论</a></div>';
+        //显示回复
+        if($(this).is('.hf-con-block')){
+            $(this).parents('.date-dz-right').parents('.date-dz').append(fhHtml);
+            $(this).removeClass('hf-con-block');
+            $('.content').flexText();
+            $(this).parents('.date-dz-right').siblings('.hf-con').find('.pre').css('padding','6px 15px');
+            //console.log($(this).parents('.date-dz-right').siblings('.hf-con').find('.pre'))
+            //input框自动聚焦
+            $(this).parents('.date-dz-right').siblings('.hf-con').find('.hf-input').val('').focus().val(fhN);
+        }else {
+            $(this).addClass('hf-con-block');
+            $(this).parents('.date-dz-right').siblings('.hf-con').remove();
+        }
+    });
+
+    var uname=$("#pinglunId").attr("value");
+    //console.log(uname+"unamede ");
+    <!--评论回复块创建-->
+    $('.comment-show').on('click','.hf-pl',function(){
+        var oThis = $(this);
+        var myDate = new Date();
+        //获取当前年
+        var year=myDate.getFullYear();
+        //获取当前月
+        var month=myDate.getMonth()+1;
+        //获取当前日
+        var date=myDate.getDate();
+        var h=myDate.getHours();       //获取当前小时数(0-23)
+        var m=myDate.getMinutes();     //获取当前分钟数(0-59)
+        if(m<10) m = '0' + m;
+        var s=myDate.getSeconds();
+        if(s<10) s = '0' + s;
+        var now=year+'-'+month+"-"+date+" "+h+':'+m+":"+s;
+        //获取输入内容
+        var oHfVal = $(this).siblings('.flex-text-wrap').find('.hf-input').val();
+        console.log("ssss: "+oHfVal)
+        var oHfName = $(this).parents('.hf-con').parents('.date-dz').siblings('.pl-text').find('.comment-size-name').html();
+        var oAllVal = '回复@'+oHfName;
+        if(oHfVal.replace(/^ +| +$/g,'') == '' || oHfVal == oAllVal){
+
+        }else {
+            $.getJSON("json/pl.json",function(data){
+                var oAt = '';
+                var oHf = '';
+                $.each(data,function(n,v){
+                    delete v.hfContent;
+                    delete v.atName;
+                    var arr;
+                    var ohfNameArr;
+                    if(oHfVal.indexOf("@") == -1){
+                        data['atName'] = '';
+                        data['hfContent'] = oHfVal;
+                    }else {
+                        arr = oHfVal.split(':');
+                        ohfNameArr = arr[0].split('@');
+                        data['hfContent'] = arr[1];
+                        data['atName'] = ohfNameArr[1];
+                    }
+
+                    if(data.atName == ''){
+                        oAt = data.hfContent;
+                    }else {
+                        oAt = '回复<a href="#" class="atName">@'+data.atName+'</a> : '+data.hfContent;
+                    }
+                    oHf = data.hfName;
+                });
+
+                var oHtml = '<div class="all-pl-con"><div class="pl-text hfpl-text clearfix"><a href="#" class="comment-size-name">'+uname+' : </a><span class="my-pl-con">'+oAt+'</span></div><div class="date-dz"> <span class="date-dz-left pull-left comment-time">'+now+'</span> <div class="date-dz-right pull-right comment-pl-block"> <a href="javascript:;" class="removeBlock">删除</a> <a href="javascript:;" class="date-dz-pl pl-hf hf-con-block pull-left">回复</a> <span class="pull-left date-dz-line">|</span> <a href="javascript:;" class="date-dz-z pull-left"><i class="date-dz-z-click-red"></i>赞 (<i class="z-num">666</i>)</a> </div> </div></div>';
+                oThis.parents('.hf-con').parents('.comment-show-con-list').find('.hf-list-con').css('display','block').prepend(oHtml) && oThis.parents('.hf-con').siblings('.date-dz-right').find('.pl-hf').addClass('hf-con-block') && oThis.parents('.hf-con').remove();
+            });
+        }
+    });
+
+</script>
+<!--删除评论块-->
+<script type="text/javascript">
+    $('.commentAll').on('click','.removeBlock',function(){
+        var oT = $(this).parents('.date-dz-right').parents('.date-dz').parents('.all-pl-con');
+        if(oT.siblings('.all-pl-con').length >= 1){
+            oT.remove();
+        }else {
+            $(this).parents('.date-dz-right').parents('.date-dz').parents('.all-pl-con').parents('.hf-list-con').css('display','none')
+            oT.remove();
+        }
+        $(this).parents('.date-dz-right').parents('.date-dz').parents('.comment-show-con-list').parents('.comment-show-con').remove();
+
+    })
+</script>
+<!--点赞-->
+<script type="text/javascript">
+    $('.comment-show').on('click','.date-dz-z',function(){
+        var zNum = $(this).find('.z-num').html();
+        if($(this).is('.date-dz-z-click')){
+            zNum--;
+            $(this).removeClass('date-dz-z-click red');
+            $(this).find('.z-num').html(zNum);
+            $(this).find('.date-dz-z-click-red').removeClass('red');
+        }else {
+            zNum++;
+            $(this).addClass('date-dz-z-click');
+            $(this).find('.z-num').html(zNum);
+            $(this).find('.date-dz-z-click-red').addClass('red');
+        }
+    })
+</script>
+<script>
+    $('.videolist').each(function(){ //遍历视频列表
+        $(this).hover(function(){ //鼠标移上来后显示播放按钮
+            $(this).find('.videoed').show();
+        },function(){
+            $(this).find('.videoed').hide();
+        });
+        $(this).click(function(){ //这个视频被点击后执行
+            var img = $(this).attr('vpath');//获取视频预览图
+            var video = $(this).attr('ipath');//获取视频路径
+            $('.videos').html("<video id=\"video\" poster='"+img+"' style='width: 640px' src='"+video+"' preload=\"auto\" controls=\"controls\" autoplay=\"autoplay\"></video><img onClick=\"close1()\" class=\"vclose\" src=\"../img/gb.png\" width=\"25\" height=\"25\"/>");
+            $('.videos').show();
+        });
+    });
+
+    function close1(){
+        var v = document.getElementById('video');//获取视频节点
+        $('.videos').hide();//点击关闭按钮关闭暂停视频
+        v.pause();
+        $('.videos').html();
+    }
+</script>
+<script type="text/javascript">
+    $(function() {
+        var $uli = $("ul li");
+        var $oli = $("ol li");
+        $oli.addClass("hide");
+        $oli[0].className = "show";
+        $uli.addClass("normal");
+        $uli[0].className = "hover";
+
+
+        $uli.mouseover(function() {
+            var index = $(this).index();
+            $uli.removeClass().addClass("normal");
+            $(this).removeClass().addClass("hover");
+            $oli.removeClass().addClass("hide");
+            $oli.eq(index).removeClass().addClass("show");
+        });
+
+    })
+</script>
+<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=DmvaTbVhDI5FzcLmG8zcZQdPllicdMXQ"></script>
+<script>
+    var map = new BMap.Map("XSDFXPage");          // 创建地图实例
+    var point = new BMap.Point(116.404, 39.915);  // 创建点坐标
+    map.centerAndZoom(point, 15);                 // 初始化地图，设置中心点坐标和地图级别
+    // 开启鼠标滚轮缩放
+    map.enableScrollWheelZoom(true);
+    var difang=$(".city1class").attr("value");
+    map.setCenter(difang);
+   /* map.setMapStyle({style: 'grayscale'});*/ //灰度
+
+    /************************************************
+     添加工具条、比例尺控件
+     *************************************************/
+    map.addControl(new BMap.ScaleControl({ anchor: BMAP_ANCHOR_TOP_LEFT }));
+    map.addControl(new BMap.NavigationControl());
+    map.addControl(
+        new BMap.NavigationControl({
+            anchor: BMAP_ANCHOR_BOTTOM_RIGHT,
+            type: BMAP_NAVIGATION_CONTROL_SMALL
+        })
+    );
+
+    function theLocation() {
+        var city = document.getElementById("cityName").value;
+        if (city != "") {
+            map.centerAndZoom(city, 12);      // 用城市名设置地图中心点
+        }
+        // 创建地址解析器实例
+        var myGeo = new BMap.Geocoder();
+        // 将地址解析结果显示在地图上,并调整地图视野
+        myGeo.getPoint(city, function (point) {
+            if (point) {
+                map.centerAndZoom(point, 12);
+                x = point.lng;
+                y = point.lat;
+            } else {
+                alert("您选择地址没有解析到结果!");
+            }
+        });
+    }
+
+</script>
+</body>
+
+</html>

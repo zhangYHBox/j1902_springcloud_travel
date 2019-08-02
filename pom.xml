@@ -6,12 +6,19 @@
 
     <groupId>com.qf.j1902</groupId>
     <artifactId>j1902_springcloud_travel</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
     <modules>
         <module>j1902_travel_eureka_server_8761</module>
         <module>j1902_travel_config_server_9090</module>
         <module>j1902_travel_consumer_portal_10001</module>
+        <module>j1902_travel_pojo</module>
+        <module>j1902_travel_pojo</module>
+        <module>j1902_travel_dispensary_pojo</module>
+        <module>j1902_travel_dispensary_pojo</module>
+        <module>J1902_travel_dispensary_pojo</module>
+        <module>j1902_travel_common</module>
     </modules>
 
 

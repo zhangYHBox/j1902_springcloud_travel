@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>酒店列表</title>
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link rel="stylesheet" href="css/search.css">
+
+    <link href="../mylayui/css/layui.css" rel="stylesheet" />
+    <script src="../mylayui/layui.js" type="text/javascript"></script>
+    <script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+
+    <script src="js/jquery-3.3.1.js"></script>
+    <style type="text/css">
+        .clearfix {
+            clear: both;
+        }
+        .clearfix:after {
+            clear: both;
+            content: "";
+            display: block;
+            height: 0;
+            visibility: hidden;
+        }
+        .fl {
+            float: left;
+        }
+        .fr {
+            float: right;
+        }
+        .pager {
+            max-width: 800px;
+            text-align: center;
+            margin-bottom: 30px;
+            display: inline-block;
+        }
+        .pager a{
+            cursor: pointer;
+        }
+        .pager a,
+        .pager span {
+            width: 29px;
+            height: 28px;
+            border: 1px #cccccc solid;
+            margin-left: -1px;
+            color: #8a8a8a;
+            display: inline-block;
+            line-height: 28px;
+            float: left;
+            font-size: 12px;
+            text-decoration: none;
+            margin: 0 2px;
+        }
+        .pager a:hover,
+        .pager span:hover {
+            border-color: #3897cd;
+            color: #3897cd;
+            position: relative;
+            z-index: 1;
+        }
+        .pager span.current {
+            background-color: #3897cd;
+            color: #fff;
+            border-color: #3897cd;
+            position: relative;
+            z-index: 1;
+        }
+        .pager .pg-first,
+        .pager .pg-prev,
+        .pager .pg-next,
+        .pager .pg-last{
+            background: url(images/page_bg.jpg) 0 0 no-repeat;
+        }
+        .pager .pg-first:hover,
+        .pager .pg-prev:hover,
+        .pager .pg-next:hover,
+        .pager .pg-last:hover{
+            background: url(images/page_bg_hover.jpg) 0 0 no-repeat;
+        }
+        .pager .pg-prev,
+        .pager .pg-prev:hover{
+            background-position: 0 -28px;
+        }
+        .pager .pg-next,
+        .pager .pg-next:hover{
+            background-position: -29px -28px;
+        }
+        .pager .pg-last,
+        .pager .pg-last:hover{
+            background-position: -29px 0;
+        }
+        .pager .pg-prev[disabled='true'],
+        .pager .pg-prev[disabled='true']:hover{
+            cursor: default;
+            background-image: url(images/page_bg.jpg);
+        }
+        .pager .pg-next[disabled='true'],
+        .pager .pg-next[disabled='true']:hover{
+            cursor: default;
+            background-image: url(images/page_bg.jpg);
+        }
+        .pager .pg-prev[disabled='true'],
+        .pager .pg-next[disabled='true']{
+            border-color: #eeeeee;
+        }
+        .pager span.els{
+            border-color: transparent;
+        }
+
+        .pagerHtmlWrap{
+            width: 800px;
+            margin: 30px auto;
+        }
+        .pagerHtmlWrap .cc_cells{
+            width: 100%;
+            height: 35px;
+            padding: 5px 0;
+            border-bottom: 1px #cccccc solid;
+        }
+        .pagerHtmlWrap .cc_cells a{
+            color: #454545;
+            font-size: 14px;
+            line-height: 35px;
+            text-decoration: none;
+        }
+        .pagerHtmlWrap .cc_cells a span{
+            display: inline-block;
+            width: 25%;
+            text-align: left;
+            margin: 0;
+        }
+
+        .hotelDetail{
+            display: inline-block;
+            width: 84px;
+            background: #f80;
+            padding: 3px;
+            margin: 5px;
+            font-size: 14px;
+            font-family: MicrosoftYaHei-Bold;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 2px;
+        }
+        .satisfaction{
+            color: #999;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<!--引入头部-->
+<div id="header"></div>
+
+
+
+<div class="layui-main">
+    <form class="layui-form" action="javascript:jg()" method="post" style="margin:50px auto">
+        <div class="layui-form-item">
+            <label class="layui-form-label">请选择地区</label>
+            <div class="layui-inline">
+                <select name="province" id="province" lay-verify="required" lay-search lay-filter="province">
+                    <option value="">省份</option>
+                </select>
+            </div>
+            <div class="layui-inline">
+                <select name="city" id="city" lay-verify="required" lay-search lay-filter="city">
+                    <option value="">地级市</option>
+                </select>
+            </div>
+            <div class="layui-inline">
+                <select name="district" id="district" lay-verify="required" lay-search>
+                    <option value="">县/区</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <div class="layui-input-inline">
+                <button type="submit" class="layui-btn ">提交</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+    <div class="page_one">
+        <div class="contant">
+            <div class="crumbs">
+                <img src="images/search.png" alt="">
+                <p>行者旅行><span>为你找到22805家酒店</span></p>
+            </div>
+            <div class="xinxi clearfix">
+                <div class="left">
+                    <div class="header">
+                        <span>商品信息</span>
+                        <span class="jg">价格</span>
+                    </div>
+                    <!--酒店列表开始-->
+                    <ul>
+                        <li id="ul1" th:each="hotel:${hotels}">
+                            <div class="img"><img style="width: 299px;height: 169px" th:src="${hotel.himg}" src="images/04-search_03.jpg" alt=""></div>
+                            <div class="text1">
+                                <a href="tavern"><p th:text="${hotel.hname}">【减100元 含除夕/春节出发】广州增城三英温泉度假酒店/自由行套票</p>
+                                <br/>
+                                <p th:text="${hotel.intro}">1-2月出发，网付立享￥1099/2人起！爆款位置有限，抢完即止！</p>
+                                </a>
+                            </div>
+                            <div class="price">
+                                <p class="price_num">
+                                    <span>&yen;</span>
+                                    <span th:text="${hotel.hprice}">299</span>
+                                    <span>起</span>
+                                </p>
+                                <span class="satisfaction" th:text="${hotel.score}">4.6</span>
+                                <span class="satisfaction">/</span>
+                                <span class="satisfaction">5分</span><br/>
+                                <div class="hotelDetail"><a class="routeD" href="javascript:void(0)" th:value="${hotel.hid}">查看详情</a></div>
+                            </div>
+                        </li>
+                      <!--  <li>
+                            <div class="img"><img src="images/04-search_03.jpg" alt=""></div>
+                            <div class="text1">
+                                <p>浪花朵朵旅行普吉岛丛林飞跃空中飞人探险游中文服务泰国旅游</p>
+                                <br/>
+                                <p>1-2月出发，网付立享￥1099/2人起！爆款位置有限，抢完即止！</p>
+                            </div>
+                            <div class="price">
+                                <p class="price_num">
+                                    <span>&yen;</span>
+                                    <span>899</span>
+                                    <span>起</span>
+                                </p>
+                                <p><a href="route_detail.html">查看详情</a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="img"><img src="images/04-search_03.jpg" alt=""></div>
+                            <div class="text1">
+                                <p>黑妞皇家旅行普吉岛攀牙湾大船星光之旅皮划艇日落休闲特色体验</p>
+                                <br/>
+                                <p>1-2月出发，网付立享￥1099/2人起！爆款位置有限，抢完即止！</p>
+                            </div>
+                            <div class="price">
+                                <p class="price_num">
+                                    <span>&yen;</span>
+                                    <span>999</span>
+                                    <span>起</span>
+                                </p>
+                                <p><a href="route_detail.html">查看详情</a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="img"><img src="images/04-search_03.jpg" alt=""></div>
+                            <div class="text1">
+                                <p>浪花朵朵旅行普吉岛皇帝岛珊瑚岛香蕉船拖拽伞水上项目</p>
+                                <br/>
+                                <p>1-2月出发，网付立享￥1099/2人起！爆款位置有限，抢完即止！</p>
+                            </div>
+                            <div class="price">
+                                <p class="price_num">
+                                    <span>&yen;</span>
+                                    <span>99</span>
+                                    <span>起</span>
+                                </p>
+                                <p><a href="route_detail.html">查看详情</a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="img"><img src="images/04-search_03.jpg" alt=""></div>
+                            <div class="text1">
+                                <p>环游记 泰国清迈Lila massage女子监狱spa 丽菈泰式按摩马杀鸡</p>
+                                <br/>
+                                <p>1-2月出发，网付立享￥1099/2人起！爆款位置有限，抢完即止！</p>
+                            </div>
+                            <div class="price">
+                                <p class="price_num">
+                                    <span>&yen;</span>
+                                    <span>199</span>
+                                    <span>起</span>
+                                </p>
+                                <p><a href="route_detail.html">查看详情</a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="img"><img src="images/04-search_03.jpg" alt=""></div>
+                            <div class="text1">
+                                <p>【减100元 含除夕/春节出发】广州增城三英温泉度假酒店/自由行套票</p>
+                                <br/>
+                                <p>1-2月出发，网付立享￥1099/2人起！爆款位置有限，抢完即止！</p>
+                            </div>
+                            <div class="price">
+                                <p class="price_num">
+                                    <span>&yen;</span>
+                                    <span>899</span>
+                                    <span>起</span>
+                                </p>
+                                <p><a href="route_detail.html">查看详情</a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="img"><img src="images/04-search_03.jpg" alt=""></div>
+                            <div class="text1">
+                                <p>【减100元 含除夕/春节出发】广州增城三英温泉度假酒店/自由行套票</p>
+                                <br/>
+                                <p>1-2月出发，网付立享￥1099/2人起！爆款位置有限，抢完即止！</p>
+                            </div>
+                            <div class="price">
+                                <p class="price_num">
+                                    <span>&yen;</span>
+                                    <span>1199</span>
+                                    <span>起</span>
+                                </p>
+                                <p><a href="route_detail.html">查看详情</a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="img"><img src="images/04-search_03.jpg" alt=""></div>
+                            <div class="text1">
+                                <p>泰国芭提雅三合一日游芭提雅蒂芬妮人妖秀成人门票bigeye含接送</p>
+                                <br/>
+                                <p>1-2月出发，网付立享￥1099/2人起！爆款位置有限，抢完即止！</p>
+                            </div>
+                            <div class="price">
+                                <p class="price_num">
+                                    <span>&yen;</span>
+                                    <span>1589</span>
+                                    <span>起</span>
+                                </p>
+                                <p><a href="route_detail.html">查看详情</a></p>
+                            </div>
+                        </li>-->
+                    </ul>
+                    <div class="page_num_inf">
+                        <i></i> 共
+                        <span>12</span>页<span>132</span>条
+                    </div>
+                    <div class="pageNum">
+                        <ul>
+                            <!--分页代码-->
+                            <div style="text-align: center;margin:20px auto;">
+                                <div id="pager" class="pager clearfix">
+
+                                </div>
+                            </div>
+                           <!-- <li><a href="">首页</a></li>
+                            <li class="threeword"><a href="#">上一页</a></li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li><a href="#">6</a></li>
+                            <li><a href="#">7</a></li>
+                            <li><a href="#">8</a></li>
+                            <li><a href="#">9</a></li>
+                            <li><a href="#">10</a></li>
+                            <li class="threeword"><a href="javascript:;">下一页</a></li>
+                            <li class="threeword"><a href="javascript:;">末页</a></li>-->
+                        </ul>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="top">
+                        <div class="hot">HOT</div>
+                        <span>热门推荐</span>
+                    </div>
+                    <ul>
+                        <li>
+                            <div class="left"><img src="images/04-search_09.jpg" alt=""></div>
+                            <div class="right">
+                                <p>清远新银盏温泉度假村酒店/自由行套...</p>
+                                <p>网付价<span>&yen;<span>899</span>起</span>
+                                </p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="left"><img src="images/04-search_09.jpg" alt=""></div>
+                            <div class="right">
+                                <p>清远新银盏温泉度假村酒店/自由行套...</p>
+                                <p>网付价<span>&yen;<span>899</span>起</span>
+                                </p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="left"><img src="images/04-search_09.jpg" alt=""></div>
+                            <div class="right">
+                                <p>清远新银盏温泉度假村酒店/自由行套...</p>
+                                <p>网付价<span>&yen;<span>899</span>起</span>
+                                </p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="left"><img src="images/04-search_09.jpg" alt=""></div>
+                            <div class="right">
+                                <p>清远新银盏温泉度假村酒店/自由行套...</p>
+                                <p>网付价<span>&yen;<span>899</span>起</span>
+                                </p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="left"><img src="images/04-search_09.jpg" alt=""></div>
+                            <div class="right">
+                                <p>清远新银盏温泉度假村酒店/自由行套...</p>
+                                <p>网付价<span>&yen;<span>899</span>起</span>
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--引入头部-->
+    <div id="footer"></div>
+    <!--导入布局js，共享header和footer-->
+    <script type="text/javascript" src="js/include.js"></script>
+<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="../js/jquery.z-pager.js" charset="utf-8"></script>
+
+<script src="../myjs/area.js" type="text/javascript"></script>
+<script src="../myjs/select.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $("#pager").zPager({
+        totalData: 60
+    });
+
+    $(".routeD").on("click",function () {
+        var hid=$(this).attr("value");
+        alert(hid);
+        window.location.href="/route_detail?hid="+hid;
+    });
+
+    function jg(){
+        alert($("#province").val()+$("#city").val()+$("#district").val());
+    }
+
+</script>
+</body>
+
+</html>

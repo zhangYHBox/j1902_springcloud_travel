@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qf.j1902.mapper.CityMapper">
+    <resultMap id="cityMap" type="com.qf.j1902.pojo.City">
+        <id property="cid" column="cid"/>
+        <result property="cname" column="cname"/>
+    </resultMap>
+    <select id="findCitys" resultMap="cityMap">
+      SELECT c.cname
+      FROM
+      city c, city_hotel ch
+      WHERE c.cid=ch.cid
+    </select>
+    <select id="findCnameByHid" resultMap="cityMap">
+        select c.cname
+        from
+        city c,city_hotel ch ,hotel h
+        where c.cid=ch.cid
+          and h.hid=ch.hid
+          and h.hid=#{hid}
+    </select>
+</mapper>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>我的订单</title>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" href="css/xiazai.css" type="text/css" media="screen" charset="utf-8" />
+
+    <!--myordertwo-->
+    <link rel="stylesheet" href="./css/carts.css">
+    <link rel="stylesheet" href="../mycss/order.css" />
+    <link href="../dingdan/css/public.css" type="text/css" rel="stylesheet"/>
+   <!--end-->
+    <script src="../js/jquery-3.3.1.js" type="text/javascript"></script>
+    <script src="../js/angular.min.js" type="text/javascript" charset="utf-8"></script>
+    <style>
+        #footerClass11{
+            height:100vh;
+        }
+        .ngimgclass{
+            width: 110px;
+            height: 90px;
+        }
+        .jiesuanclass{
+            color: #fff;
+            background-color: #d9534f;
+            border-color: #d43f3a;
+        }
+    </style>
+</head>
+<!-- 头部 start -->
+<header id="header">
+    <div class="top_banner">
+        <img src="images/top_banner.jpg" alt="">
+    </div>
+    <div class="shortcut">
+        <!-- 未登录状态  -->
+        <div class="login_out">
+            <a href="login.html">登录</a>
+            <a href="register.html">注册</a>
+            <a href="myorder">我的订单</a>
+            <!-- <select name="numbers">
+                 <option>我的订单</option>
+                 <option>全部订单</option>
+                 <option>我的机票</option>
+                 <option>我的酒店</option>
+             </select>-->
+        </div>
+        <!-- 登录状态  -->
+        <div class="login">
+
+            <span>欢迎回来，admin</span>
+            <a href="myfavorite.html" class="collection">我的收藏</a>
+            <a href="javascript:;">退出</a>
+        </div>
+    </div>
+    <div class="header_wrap">
+        <div class="topbar">
+            <div class="logo">
+                <a href="/"><img src="images/logo.jpg" alt=""></a>
+            </div>
+            <div class="search">
+                <input name="" type="text" placeholder="请输入路线名称" class="search_input" autocomplete="off">
+                <a href="javascript:;" class="search-button">搜索</a>
+            </div>
+            <div class="hottel">
+                <div class="hot_pic">
+                    <img src="images/hot_tel.jpg" alt="">
+                </div>
+                <div class="hot_tel">
+                    <p class="hot_time">客服热线(9:00-6:00)</p>
+                    <p class="hot_num">400-618-9090</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- 头部 end -->
+<!-- 首页导航 -->
+<div class="navitem">
+    <ul class="nav">
+        <li class="nav-active"><a href="index.html">首页</a></li>
+        <li><a href="tavern.html">景点</a></li>
+        <li><a href="/gotavern">酒店</a></li>
+        <li><a href="tavern.html">香港车票</a></li>
+        <li><a href="tavern.html">出境游</a></li>
+        <li><a href="tavern.html">国内游</a></li>
+        <li><a href="tavern.html">港澳游</a></li>
+        <li><a href="tavern.html">抱团定制</a></li>
+        <li><a href="tavern.html">全球自由行</a></li>
+        <li><a href="favoriterank.html">收藏排行榜</a></li>
+    </ul>
+</div>
+
+<body ng-app>
+
+<div style="margin-left:auto; margin-right:auto; width:600px; padding-top:30px">
+    <input  type="text" name="" value=""  ng-model="abc" placeholder="输入关键字快速查找">{{abc}}
+</div>
+
+<div ng-controller="cartController" class="container">
+    <table class="table" ng-show="cart.length">
+        <thead>
+        <tr>
+            <th>产品编号</th>
+            <th>商品图片</th>
+            <th>商品名称</th>
+            <th>数量/入住天数</th>
+            <th>单价</th>
+            <th>共计总价</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in cart| filter:abc">
+            <td  ng-bind="item.uid"></td>
+            <td><img class="ngimgclass" ng-src="{{item.img}}" src=""/></td>
+            <td ng-bind="item.room"></td>
+            <td>
+                <button type="button" ng-click="reduce(item.uid)" class="btn btn-primary btn-sm">-</button>
+                <input type="text" ng-model="item.numbers" style="text-align: center;">
+                <button type="button" ng-click="add(item.uid)" class="btn btn-primary btn-sm">+</button>
+            </td>
+            <td ng-bind="item.price"></td>
+            <td ng-bind="item.price*item.numbers"></td>
+            <td><button type="button" ng-click="remove(item.uid)" class="btn btn-danger btn-sm">移除</button></td>
+        </tr>
+        <tr>
+            <td>总价</td>
+            <td ng-bind="totalPrice()"></td>
+            <td>总入住天数</td>
+            <td ng-bind="totalQuantity()"></td>
+            <td colspan="2"><button type="button"  ng-click="cart = {}" class="btn btn-danger btn-sm">清空购物车</button></td>
+            <td><a href="detail"><b class="btn jiesuanclass">结算</b></a></td>
+        </tr>
+       <!-- <a href="excel/getuser">导出excel表格</a>-->
+
+        <div class="">
+            <ul id="download-btn-freebie">
+                <li>
+                    <a href="excel/getuser">
+				<span class="button red">
+					<span class="icon" style="background-image: url(images/down-icon.png);"></span>
+					<span class="text">
+						导出excel表格
+					</span>
+				</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+
+        </tbody>
+    </table>
+    <p ng-show="!cart.length">您的购物车已空</p>
+</div>
+
+<div id="footerClass11">
+<!-- 尾部 start-->
+<footer id="footer">
+    <div class="why_select">
+        <dl>
+            <dt class="fl">
+                <img src="images/icon_1.jpg" alt="">
+            </dt>
+            <dd>
+                <h1>产品齐全</h1>
+                <h2>产品全自主选，随心买</h2>
+            </dd>
+        </dl>
+        <dl>
+            <dt class="fl">
+                <img src="images/icon_2.jpg" alt="">
+            </dt>
+            <dd>
+                <h1>便利快捷</h1>
+                <h2>24小时不打烊，随时买</h2>
+            </dd>
+        </dl>
+        <dl>
+            <dt class="fl">
+                <img src="images/icon_3.jpg" alt="">
+            </dt>
+            <dd>
+                <h1>安全支付</h1>
+                <h2>知名支付工具，放心买</h2>
+            </dd>
+        </dl>
+        <dl>
+            <dt class="fl">
+                <img src="images/icon_4.jpg" alt="">
+            </dt>
+            <dd style="margin-right:0px;">
+                <h1>贴心服务</h1>
+                <h2>客服全年无休，安心买</h2>
+            </dd>
+        </dl>
+    </div>
+    <div class="company">
+        <p>xxxxxx科技股份有限公司 版权所有Copyright 2006-2019, All Rights Reserved 苏ICP备16007882</p>
+    </div>
+</footer>
+</div>
+</body>
+<script>
+    var cartController = function($scope){
+        getAll();
+
+        /*$scope.cart = [
+            {
+                uid: '',
+                room:'',
+                numbers: '',
+                price:''
+            }
+        ];*/
+        $scope.cart = [];
+        //getAll
+        function getAll(){  //通过ajax去controller取值
+            $.ajax({
+                url:'/getAll',
+                type:'post',
+                success:function (data) {
+                    var mess=eval(data);  //解析json
+                   // console.log(mess);
+                    $scope.cart=mess;
+                     $scope.$apply(); //Scope提供$apply方法传播Model的变化。
+                },
+                error:function (xhr, textStatus, errorThrown,data) {
+                    console.log("错误，"+textStatus+","+errorThrown+data);
+                }
+            });
+        };
+
+
+        //总购买数量
+        $scope.totalQuantity = function(){
+            var total = 0;
+            angular.forEach($scope.cart,function(item){
+                total += parseInt(item.numbers);
+            });
+            return total;
+        };
+        //总购买价格
+        $scope.totalPrice = function(){
+            var total = 0;
+            angular.forEach($scope.cart,function(item){
+                total += parseInt(item.numbers*item.price);
+            });
+            return total;
+        };
+        //找一个项目
+        $scope.findItem = function(id){
+            var index = -1;
+            angular.forEach($scope.cart, function(item, key){
+                if(item.uid === id){
+                    index = key;
+                    return;
+                };
+            });
+            return index;
+        };
+
+        //移除table
+        $scope.remove = function(id){
+            var index = $scope.findItem(id);
+            if(index !== -1){
+                $scope.cart.splice(index,1);
+
+                $.ajax({
+                    type: "post",
+                    url: '/deleteShop',
+                    data: {cid:id},
+                    success: function (data) {
+                        alert("删除成功！");
+                        $scope.remove(id);
+                        $scope.$apply();
+
+                    },
+                    error:function (xhr, textStatus, errorThrown,data) {
+                        console.log("错误，"+textStatus+","+errorThrown+data);
+                    }
+                });
+
+            };
+        };
+
+        //减少一个商品数量
+        $scope.reduce = function(id){
+            var index = $scope.findItem(id);
+            //console.log(id+"==");  //id为表的id值，index为显示的下标值，数据库应操作id,前台操作index
+            if(index !== -1){
+                var item = $scope.cart[index];
+                if(item.numbers>1){
+                    --item.numbers;
+                } else{
+                    var returnKey = confirm("是否从购物车中删除该产品！");
+                    if(returnKey){
+                        //ajax动态根据id删除产品
+                        $.ajax({
+                            type: "post",
+                            url: '/deleteShop',
+                            data: {cid:id},
+                            success: function (data) {
+                                alert("删除成功！");
+                                $scope.remove(id);
+                                $scope.$apply();
+
+                            },
+                            error:function (xhr, textStatus, errorThrown,data) {
+                                console.log("错误，"+textStatus+","+errorThrown+data);
+                            }
+                        });
+                    }
+                }
+            }
+        };
+        //增加一个商品数量
+        $scope.add = function(id){
+            var index = $scope.findItem(id);
+            if(index !== -1){
+                ++$scope.cart[index].numbers;
+            };
+        };
+
+        $scope.$watch('cart',function(newvalue,oldvalue){
+            angular.forEach(newvalue, function(item, key){
+                if(item.numbers < 1 && item.numbers!==''){
+                    var returnKey = confirm("是否从购物车中删除该产品！");
+                    if(returnKey){
+
+                        $scope.remove(id);
+                    }else{
+                        item.numbers = oldvalue[key].numbers;
+                    };
+                };
+            });
+        },true);
+    }
+
+</script>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>travel_detail</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../layui/css/layui.css"  media="all"/>
+    <link rel="stylesheet" href="../mycss/order.css" />
+    <link rel="stylesheet" href="../mycss/travel_detail.css"/>
+
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+
+    <link href="../dingdan/css/public.css" type="text/css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../dingdan/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../dingdan/css/buyConfirm.css" />
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-3.3.1.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="../layui/layui.js" charset="utf-8"></script>
+
+</head>
+<body>
+<div id="orderheader"></div>
+<div class="buyPageDiv">
+    <div class="productList">
+        <div class="productListTip">确认订单信息</div>
+        <table class="productListTable">
+            <thead>
+            <tr>
+                <th class="productListTableFirstColumn" colspan="2">
+                    <img src="http://how2j.cn/tmall/img/site/tmallbuy.png" class="tmallbuy">
+                    <a href="#nowhere" class="marketLink">行者旅游网</a>
+                    <a href="#nowhere" class="wangwanglink"> <span class="wangwangGif"></span> </a>
+                </th>
+                <th>票价</th>
+                <th>数量</th>
+                <th>小计</th>
+                <th>配送方式</th>
+            </tr>
+            <tr class="rowborder">
+                <td colspan="2"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </thead>
+            <tbody class="productListTableTbody">
+            <tr class="orderItemTR" >
+                <td class="orderItemFirstTD"><img width="40px"  src="http://how2j.cn/tmall/img/productSingle_middle/4206.jpg" class="orderItemImg"></td>
+                <td class="orderItemProductInfo">
+                    <a class="orderItemProductLink" id="subject" href="#nowhere" >
+                        <td th:text="${view.commodity}">Philips/飞利浦 HR1897/30破壁微榨原汁机 多功能家用果汁榨汁机</td>
+                    </a>
+                    <!--<a class="orderItemProductLink" id="body" href="#nowhere" >
+                        Philips/飞利浦 HR1897/30破壁微榨原汁机 多功能家用果汁榨汁机
+                    </a>-->
+                    <img title="支持信用卡支付" src="http://how2j.cn/tmall/img/site/creditcard.png">
+                    <img title="消费者保障服务,承诺7天退货" src="http://how2j.cn/tmall/img/site/7day.png">
+                    <img title="消费者保障服务,承诺如实描述" src="http://how2j.cn/tmall/img/site/promise.png">
+                </td>
+                <td>
+                    <span class="orderItemUnitSum">￥</span><span class="orderItemProductPrice" id="p1" th:text="${view.price}">3,514.05</span>
+                </td>
+                <td>
+                    <span class="orderItemProductNumber" id="p2">1</span>
+                </td>
+                <td>
+                    <span class="orderItemUnitSum">￥</span><span class="orderItemUnitSum" id="p3">7,028.10</span>
+                </td>
+                <td class="orderItemLastTD" rowspan="5">
+                    <label class="orderItemDeliveryLabel">
+                        <!--<input type="radio" checked="checked" value="">-->
+                        取票
+                    </label>
+                    <select class="orderItemDeliverySelect">
+                        <option>快递</option>
+                        <option>自取</option>
+                    </select>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <hr/>
+        <div class="orderItemTotalSumDivs">
+            <div class="productListTips" style="font-weight: bold">出行信息</div>
+            <div id="orderformationDiv">
+                <div class="divfomation"><label style="font-size: 16px">出 发 地：</label><label style="font-size: 16px" th:text="${orderRelation.origin}">西安</label></div><br/>
+                <div class="divfomation"><label style="font-size: 16px">目 的 地：</label><label style="font-size: 16px" th:text="${orderRelation.destination}">北京</label></div><br/>
+                <div class="divfomation"><label style="font-size: 16px">出发日期：</label><label style="font-size: 16px" th:text="${orderRelation.startDate}" >2019-07-23</label></div><br/>
+                <div class="divfomation"><label style="font-size: 16px">返程日期：</label><label style="font-size: 16px" th:text="${orderRelation.endDate}">2019-07-28</label></div><br/>
+                <div class="divfomation"><label style="font-size: 16px">航班时间：</label><label style="font-size: 16px" th:text="${orderRelation.startTime}">12：20：00</label></div><br/>
+            </div>
+        </div>
+        <div class="xm-plain-box">
+            <!-- 选择支付方式 -->
+            <div class="box-hd bank-title clearfix">
+                <div id="titleWrap" class="title-wrap">
+                    <h2 class="title">选择支付方式</h2>
+                    <h2 class="title hide " >你还需要继续支付 <em>49.00</em> 元</h2>
+                    <span class="tip-tag"></span>
+                </div>
+            </div>
+            <div class="box-bd" id="bankList">
+                <div class="payment-bd">
+                    <form name="ck">
+                        <dl class="clearfix payment-box" >
+                            <dt>
+                                <strong>支付平台</strong>
+                            <p>手机等大额支付推荐使用支付宝快捷支付</p>
+                            </dt>
+                            <dd>
+                                <fieldset id="test4-input-input_tab1-input_tab2" style=" border:none;">
+                                    <ul class="payment-list clearfix" >
+                                        <li><input class="input_tab2" name="myradio" id="r2" type="radio" /><label for="r2" ><img src="../dingdan/images/zfb.png" alt=""/></label></li>
+                                    </ul>
+                                    <div >
+                                        <div  id="test4_2" style="display:none;"></div>
+                                        <div  id="test4_3" style="display:none;"></div>
+                                        <div  id="test4_4" style="display:none;"></div>
+                                    </div>
+                                </fieldset>
+                            </dd>
+                        </dl>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="orderItemSumDiv">
+            <div class="pull-left">
+                <span class="leaveMessageText">给卖家留言:</span>
+                <span>
+					<input type="text" style="height: 80px; width: 600px"/>
+				</span>
+                <span class="leaveMessageTextareaSpan" style="display: none;">
+					<textarea class="leaveMessageTextarea" name="userMessage"></textarea>
+					<div>
+						<span>还可以输入200个字符</span>
+					</div>
+				</span>
+            </div><br/>
+            <span class="pull-right">店铺合计(含运费): ￥</span><span class="pull-right" id="p4">9,152.25</span>
+        </div>
+    </div>
+    <div class="orderItemTotalSumDiv">
+        <div class="pull-right">
+            <span>实付款：</span>
+            <span class="orderItemTotalSumSpan">￥</span><span class="orderItemTotalSumSpan" id="totalAmount">9,152.25</span>
+        </div>
+    </div>
+    <div class="submitOrderDiv">
+        <button class="submitOrderButton" type="button" onclick="alipay()">提交订单</button>
+    </div>
+</div>
+<div id="footer"></div>
+<script src="../js/xijs/travel_order.js"></script>
+<script type="text/javascript" src="../js/include.js"></script>
+<script>
+    $(function () {
+        var d1 = $("#p1").text();
+        var d2 = $("#p2").text();
+        var d3 = d1*d2;
+        $("#p3").text(d3);
+        $("#p4").text(d3);
+        $("#totalAmount").text(d3);
+    })
+    function alipay() {
+        var totalAmount = $("#totalAmount").text();
+        var subject = $("#subject").text();
+        var body = $("#body").text();
+        $.ajax({
+            url:"alipay",
+            type:"post",
+            data:{totalAmount:totalAmount,subject:subject,body:body},
+            success:function (msg) {
+               alert("msg==="+msg);
+               window.location.href="order/alipay";
+            }
+        })
+    }
+</script>
+</body>
+</html>

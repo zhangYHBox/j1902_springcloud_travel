@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>商家服务</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/animate.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
+    <link rel="stylesheet" type="text/css" href="css/awesome-bootstrap-checkbox.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/theme.css">
+
+    <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+</head>
+
+<body class="flat-blue sidebar-collapse">
+<div class="sidebar">
+    <div class="menu-control toggle-sidebar">
+        <a class="navbar-brand" href="#"><i class="fa fa-bar-chart"></i> <td th:text="${session.loginname}">Flat Admin</td></a>
+        <i class="fa fa-bars navicon"></i>
+    </div>
+    <ul class="menu">
+        <li class="submenu">
+            <a href="main.html">
+                <div>
+                    <i class="menu-icon fa fa-th-large"></i>
+                    <span class="menu-title">数据页</span>
+                </div>
+            </a>
+        </li>
+        <li class="submenu">
+            <a href="form.html" class="active">
+                <div>
+                    <i class="menu-icon fa fa-file-text-o"></i>
+                    <span class="menu-title">资质认证</span>
+                </div>
+            </a>
+        </li>
+        <li class="submenu">
+            <a href="product.html" class="active">
+                <div>
+                    <i class="menu-icon fa fa-table"></i>
+                    <span class="menu-title">提交服务</span>
+                </div>
+            </a>
+        </li>
+        <li class="submenu dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+                <div>
+                    <i class="menu-icon fa fa-slack"></i>
+                    <span class="menu-title">Page Example</span>
+                </div>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="/">
+                        <div>
+                            <i class="menu-icon fa fa-sign-in"></i>
+                            <span class="menu-sub-title">Login</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="register.html">
+                        <div>
+                            <i class="menu-icon fa fa-pencil-square-o"></i>
+                            <span class="menu-sub-title">Register</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div class="content-container">
+    <nav class="navbar navbar-default">
+        <div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"><i class="fa fa-bar-chart"></i> Flat Admin</a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa fa-comments"></i> 0</a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-title-bar">
+                                消息 ( 0 )
+                            </li>
+                            <li class="message">
+                                没有新通知
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown notification-alert">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-exclamation-circle"></i> 3</a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-title-bar">
+                                通知 ( 3 )
+                            </li>
+                            <li>
+                                <ul class="notification-list">
+                                    <li>
+                                        <a href="#">
+                                            <div class="noti-icon noti-alert">
+                                                <i class="fa fa-exclamation-circle fa-2x"></i>
+                                            </div>
+                                            <div class="noti-message">1 个新注册信息</div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <div class="noti-icon noti-success">
+                                                <i class="fa fa-check fa-2x"></i>
+                                            </div>
+                                            <div class="noti-message">3 个订单</div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <div class="noti-icon noti-primary">
+                                                <i class="fa fa-comments fa-2x"></i>
+                                            </div>
+                                            <div class="noti-message">2 会员信息</div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><td th:text="${session.loginname}">Emily Hart</td> <span class="caret"></span></a>
+                        <ul class="dropdown-menu user-info">
+                            <li class="dropdown-title-bar">
+                                <img src="images/profile.jpg" class="profile-img">
+                            </li>
+                            <li>
+                                <div class="navbar-login">
+                                    <h4 class="user-name"><td th:text="${session.loginname}">Emily Hart</td></h4>
+                                    <p>emily_hart@email.com</p>
+                                    <div class="btn-group margin-bottom-2x" role="group">
+                                        <button type="button" class="btn btn-default"><i class="fa fa-user"></i> Profile</button>
+                                        <button type="button" id="btnId" class="btn btn-default"><i class="fa fa-sign-out"></i> Logout</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <div class="content-block">
+            <div class="block-title">商品提交单</div>
+            <form class="form-vertical" action="/shangpin">
+                <div class="block-content">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">名称</label>
+                        <input type="text" name="mingcheng" class="form-control" id="exampleInputEmail1" placeholder="名称">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">简介</label>
+                        <textarea class="form-control" name="jianjie" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputFile">图片资料</label>
+                        <input type="file" name="file" id="exampleInputFile">
+                        <p class="help-block">需提交产品的实际样图</p>
+                    </div>
+                    <!--<div class="checkbox">
+                        <input type="checkbox" id="checkbox2">
+                        <label for="checkbox2">
+                            Check me out
+                        </label>
+                    </div>-->
+                </div>
+                <div class="block-footer">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">提交</button>
+                        <button type="submit" class="btn btn-default">清零</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+</body>
+<script>
+    $("#btnId").on("click",function () {
+        window.location.href="/";
+    });
+
+</script>
+
+</html>

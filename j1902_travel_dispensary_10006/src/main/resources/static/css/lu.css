@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+ul li {
+    list-style: none;
+}
+#main {
+    width: 100%;
+    height: 260px;
+    margin: 40px 5%;
+}
+.top {
+    width: 100%;
+}
+#main ul li {
+    width: 200px;
+    height: 260px;
+    float: left;
+    position: relative;
+}
+#main ul li div {
+    width: 100%;
+    height: 260px;
+}
+#main ul li div.des {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: rgba(0,0,0,.3);
+
+}
+#main ul li div.des h4 {
+    color: #FFF;
+    font-size: 30px;
+    padding: 30px;
+    width: 30px;
+    margin: 0 auto;
+
+}

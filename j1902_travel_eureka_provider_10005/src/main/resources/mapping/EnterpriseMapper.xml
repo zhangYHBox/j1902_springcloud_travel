@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qf.j1902.mapper.EnterpriseMapper">
+    <resultMap id="enterMap" type="com.qf.j1902.pojo.Enterprise">
+        <id property="id" column="id"/>
+        <result property="loginname" column="loginname"/>
+        <result property="realname" column="realname"/>
+        <result property="email" column="email"/>
+        <result property="password" column="password"/>
+        <result property="idcard" column="idcard"/>
+        <result property="tel" column="tel"/>
+        <result property="file" column="file"/>
+    </resultMap>
+    <insert id="addEnterprise" parameterType="com.qf.j1902.pojo.Enterprise">
+        INSERT INTO
+         enterprise (loginname,realname,email,password,idcard,tel,file)
+         VALUES (#{loginname},#{realname},#{email},#{password},#{idcard},#{tel},#{file})
+    </insert>
+    <select id="getEnterprises" resultMap="enterMap">
+        SELECT loginname
+        FROM  enterprise
+    </select>
+    <update id="updateEnter" parameterType="string">
+        UPDATE enterprise
+        <set>
+            <if test="realname!=null and realname!='' ">
+                realname=#{realname},
+            </if>
+            <if test="email!=null and email!='' ">
+                email=#{email},
+            </if>
+            <if test="cardnum!=null and cardnum!='' ">
+                idcard=#{cardnum},
+            </if>
+            <if test="tel!=null and tel!='' ">
+                tel=#{tel}
+            </if>
+        </set>
+        WHERE loginname=#{loginname}
+    </update>
+</mapper>
