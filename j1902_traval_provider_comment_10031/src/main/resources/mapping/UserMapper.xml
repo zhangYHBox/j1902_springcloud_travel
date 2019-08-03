@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qf.j1902.mapper.UserMapper" >
+<resultMap id="UserResultMapper" type="com.qf.j1902.pojo.User">
+    <id column="uid" property="uid"></id>
+    <result column="uname" property="uname"></result>
+    <result column="nickname" property="nickname"></result>
+    <result column="password" property="password"></result>
+    <result column="gender" property="gender"></result>
+    <result column="headpic" property="headpic"></result>
+    <result column="email" property="email"></result>
+    <result column="IDcard" property="IDcard"></result>
+    <result column="telephone" property="telephone"></result>
+</resultMap>
+    <sql id="user_clumn">
+        uid,
+        uname,
+        nickname,
+        password,
+        gender,
+        headpic,
+        email,
+        IDcard,
+        telephone
+    </sql>
+</mapper>

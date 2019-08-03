@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.j1902.mapper.CommemtsAndUserMapper" >
+  <resultMap id="BaseResultMap" type="com.qf.j1902.pojo.Commemts" >
+    <id column="cid" property="cid" jdbcType="INTEGER" />
+    <result column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="satisfydegree" property="satisfydegree" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="committime" property="committime" jdbcType="DATE" />
+    <result column="pic" property="pic" jdbcType="VARCHAR" />
+   <association property="user" column="uid" javaType="com.qf.j1902.pojo.User">
+     <id column="uid" property="uid"></id>
+     <result column="uname" property="uname"></result>
+     <result column="nickname" property="nickname"></result>
+     <result column="password" property="password"></result>
+     <result column="gender" property="gender"></result>
+     <result column="headpic" property="headpic"></result>
+     <result column="headpic" property="headpic"></result>
+     <result column="email" property="email"></result>
+     <result column="IDcard" property="IDcard"></result>
+     <result column="telephone" property="telephone"></result>
+    </association>
+  </resultMap>
+  <sql id="commemts_clumn">
+    cid,
+    sid,
+    uid,
+    satisfydegree,
+    state,
+    content,
+    committime,
+    pic
+  </sql>
+  <!--根据满意度查询评论-->
+  <select id="getComments" parameterType="int" resultMap="BaseResultMap">
+    select u.nickname,u.headpic,c.committime,c.satisfydegree,c.content
+    FROM
+    user u,
+    comment c
+    WHERE
+    u.uid=c.uid
+    AND
+    c.satisfydegree=#{satisfydegree}
+  </select>
+  <!--查询所有评论-->
+  <select id="getCommemtsall" resultMap="BaseResultMap">
+    select u.nickname,u.headpic,c.committime,c.satisfydegree,c.content,c.cid
+    FROM
+    user u,
+    comment c
+    WHERE
+    u.uid=c.uid
+  </select>
+  <!--根据满意度获取评论数量-->
+  <select id="getCommentmo" parameterType="int" resultType="int">
+    SELECT
+    COUNT(*)
+    FROM
+user u,
+comment c
+WHERE
+u.uid=c.uid
+AND
+c.satisfydegree=#{satisfydegree}
+  </select>
+  <!--获取评论总数-->
+  <select id="getCommentmoall" resultType="int">
+    SELECT
+    COUNT(*)
+    FROM
+    user u,
+    comment c
+    WHERE
+    u.uid=c.uid
+  </select>
+</mapper>
