@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qf.j1902.mapper.CommentMapper" >
+  <resultMap id="BaseResultMap" type="com.qf.j1902.pojo.Comment" >
+    <id column="cid" property="cid" jdbcType="INTEGER" />
+    <result column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="satisfydegree" property="satisfydegree" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="committime" property="committime" jdbcType="DATE" />
+    <result column="pic" property="pic" jdbcType="VARCHAR" />
+    <result column="reply" property="reply" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    cid, sid, uid, satisfydegree, state, content, committime, pic, reply
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qf.j1902.pojo.CommentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from comment
+    where cid = #{cid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from comment
+    where cid = #{cid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.qf.j1902.pojo.CommentExample" >
+    delete from comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.qf.j1902.pojo.Comment" >
+    insert into comment (cid, sid, uid, 
+      satisfydegree, state, content, 
+      committime, pic, reply
+      )
+    values (#{cid,jdbcType=INTEGER}, #{sid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, 
+      #{satisfydegree,jdbcType=INTEGER}, #{state,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{committime,jdbcType=DATE}, #{pic,jdbcType=VARCHAR}, #{reply,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qf.j1902.pojo.Comment" >
+    insert into comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cid != null" >
+        cid,
+      </if>
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="satisfydegree != null" >
+        satisfydegree,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="committime != null" >
+        committime,
+      </if>
+      <if test="pic != null" >
+        pic,
+      </if>
+      <if test="reply != null" >
+        reply,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cid != null" >
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="satisfydegree != null" >
+        #{satisfydegree,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="committime != null" >
+        #{committime,jdbcType=DATE},
+      </if>
+      <if test="pic != null" >
+        #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="reply != null" >
+        #{reply,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.qf.j1902.pojo.CommentExample" resultType="java.lang.Integer" >
+    select count(*) from comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update comment
+    <set >
+      <if test="record.cid != null" >
+        cid = #{record.cid,jdbcType=INTEGER},
+      </if>
+      <if test="record.sid != null" >
+        sid = #{record.sid,jdbcType=INTEGER},
+      </if>
+      <if test="record.uid != null" >
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.satisfydegree != null" >
+        satisfydegree = #{record.satisfydegree,jdbcType=INTEGER},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.committime != null" >
+        committime = #{record.committime,jdbcType=DATE},
+      </if>
+      <if test="record.pic != null" >
+        pic = #{record.pic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reply != null" >
+        reply = #{record.reply,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update comment
+    set cid = #{record.cid,jdbcType=INTEGER},
+      sid = #{record.sid,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=INTEGER},
+      satisfydegree = #{record.satisfydegree,jdbcType=INTEGER},
+      state = #{record.state,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
+      committime = #{record.committime,jdbcType=DATE},
+      pic = #{record.pic,jdbcType=VARCHAR},
+      reply = #{record.reply,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qf.j1902.pojo.Comment" >
+    update comment
+    <set >
+      <if test="sid != null" >
+        sid = #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="satisfydegree != null" >
+        satisfydegree = #{satisfydegree,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="committime != null" >
+        committime = #{committime,jdbcType=DATE},
+      </if>
+      <if test="pic != null" >
+        pic = #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="reply != null" >
+        reply = #{reply,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qf.j1902.pojo.Comment" >
+    update comment
+    set sid = #{sid,jdbcType=INTEGER},
+      uid = #{uid,jdbcType=INTEGER},
+      satisfydegree = #{satisfydegree,jdbcType=INTEGER},
+      state = #{state,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      committime = #{committime,jdbcType=DATE},
+      pic = #{pic,jdbcType=VARCHAR},
+      reply = #{reply,jdbcType=VARCHAR}
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllComment" resultType="com.qf.j1902.vo.Commentvo">
+    SELECT
+    c.cid,u.username,m.commodity,c.content,c.state,c.committime, c.pic
+    FROM
+    comment c,travel_msg m,member u,msg_comment mc,member_comment uc
+    WHERE
+    c.sid=mc.sid
+    AND
+    c.cid=uc.cid
+    AND
+    uc.uid=u.uid
+    AND
+    m.sid=mc.sid
+    order by cid
+  </select>
+  <update id="updateCommentById">
+    UPDATE
+    comment
+    SET
+    reply=#{reply}
+    WHERE
+    cid=#{cid}
+  </update>
+  <delete id="delCommentsByIds" parameterType="java.util.ArrayList">
+  delete from comment
+  where  cid IN
+  <foreach collection="list" open="(" separator="," close=")" item="lists">
+    #{lists}
+  </foreach>
+</delete>
+  <update id="updateCommentStateById">
+    UPDATE
+    comment
+    SET
+    state=#{state}
+    WHERE
+    cid=#{cid}
+  </update>
+</mapper>
