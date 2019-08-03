@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qf.j1902.mapper.TravelMsgMapper" >
+  <resultMap id="BaseResultMap" type="com.qf.j1902.pojo.TravelMsg" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="commodity" property="commodity" jdbcType="VARCHAR" />
+    <result column="commodity_information" property="commodityInformation" jdbcType="VARCHAR" />
+    <result column="images" property="images" jdbcType="VARCHAR" />
+    <result column="businessmen" property="businessmen" jdbcType="VARCHAR" />
+    <result column="advisory_telephone" property="advisoryTelephone" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="country" property="country" jdbcType="VARCHAR" />
+    <result column="local" property="local" jdbcType="VARCHAR" />
+    <result column="miaoshu" property="miaoshu" jdbcType="VARCHAR" />
+    <result column="tickets" property="tickets" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="days" property="days" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, commodity, commodity_information, images, businessmen, advisory_telephone, address, 
+    country, local, miaoshu, tickets, price, days
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qf.j1902.pojo.TravelMsgExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from travel_msg
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from travel_msg
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from travel_msg
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.qf.j1902.pojo.TravelMsgExample" >
+    delete from travel_msg
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.qf.j1902.pojo.TravelMsg" >
+    insert into travel_msg (id, commodity, commodity_information, 
+      images, businessmen, advisory_telephone, 
+      address, country, local, 
+      miaoshu, tickets, price, 
+      days)
+    values (#{id,jdbcType=INTEGER}, #{commodity,jdbcType=VARCHAR}, #{commodityInformation,jdbcType=VARCHAR}, 
+      #{images,jdbcType=VARCHAR}, #{businessmen,jdbcType=VARCHAR}, #{advisoryTelephone,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, #{local,jdbcType=VARCHAR}, 
+      #{miaoshu,jdbcType=VARCHAR}, #{tickets,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, 
+      #{days,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qf.j1902.pojo.TravelMsg" >
+    insert into travel_msg
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="commodity != null" >
+        commodity,
+      </if>
+      <if test="commodityInformation != null" >
+        commodity_information,
+      </if>
+      <if test="images != null" >
+        images,
+      </if>
+      <if test="businessmen != null" >
+        businessmen,
+      </if>
+      <if test="advisoryTelephone != null" >
+        advisory_telephone,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="local != null" >
+        local,
+      </if>
+      <if test="miaoshu != null" >
+        miaoshu,
+      </if>
+      <if test="tickets != null" >
+        tickets,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="days != null" >
+        days,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="commodity != null" >
+        #{commodity,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityInformation != null" >
+        #{commodityInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="images != null" >
+        #{images,jdbcType=VARCHAR},
+      </if>
+      <if test="businessmen != null" >
+        #{businessmen,jdbcType=VARCHAR},
+      </if>
+      <if test="advisoryTelephone != null" >
+        #{advisoryTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="local != null" >
+        #{local,jdbcType=VARCHAR},
+      </if>
+      <if test="miaoshu != null" >
+        #{miaoshu,jdbcType=VARCHAR},
+      </if>
+      <if test="tickets != null" >
+        #{tickets,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="days != null" >
+        #{days,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.qf.j1902.pojo.TravelMsgExample" resultType="java.lang.Integer" >
+    select count(*) from travel_msg
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update travel_msg
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.commodity != null" >
+        commodity = #{record.commodity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commodityInformation != null" >
+        commodity_information = #{record.commodityInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.images != null" >
+        images = #{record.images,jdbcType=VARCHAR},
+      </if>
+      <if test="record.businessmen != null" >
+        businessmen = #{record.businessmen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.advisoryTelephone != null" >
+        advisory_telephone = #{record.advisoryTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.country != null" >
+        country = #{record.country,jdbcType=VARCHAR},
+      </if>
+      <if test="record.local != null" >
+        local = #{record.local,jdbcType=VARCHAR},
+      </if>
+      <if test="record.miaoshu != null" >
+        miaoshu = #{record.miaoshu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tickets != null" >
+        tickets = #{record.tickets,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DOUBLE},
+      </if>
+      <if test="record.days != null" >
+        days = #{record.days,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update travel_msg
+    set id = #{record.id,jdbcType=INTEGER},
+      commodity = #{record.commodity,jdbcType=VARCHAR},
+      commodity_information = #{record.commodityInformation,jdbcType=VARCHAR},
+      images = #{record.images,jdbcType=VARCHAR},
+      businessmen = #{record.businessmen,jdbcType=VARCHAR},
+      advisory_telephone = #{record.advisoryTelephone,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      country = #{record.country,jdbcType=VARCHAR},
+      local = #{record.local,jdbcType=VARCHAR},
+      miaoshu = #{record.miaoshu,jdbcType=VARCHAR},
+      tickets = #{record.tickets,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DOUBLE},
+      days = #{record.days,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qf.j1902.pojo.TravelMsg" >
+    update travel_msg
+    <set >
+      <if test="commodity != null" >
+        commodity = #{commodity,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityInformation != null" >
+        commodity_information = #{commodityInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="images != null" >
+        images = #{images,jdbcType=VARCHAR},
+      </if>
+      <if test="businessmen != null" >
+        businessmen = #{businessmen,jdbcType=VARCHAR},
+      </if>
+      <if test="advisoryTelephone != null" >
+        advisory_telephone = #{advisoryTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="local != null" >
+        local = #{local,jdbcType=VARCHAR},
+      </if>
+      <if test="miaoshu != null" >
+        miaoshu = #{miaoshu,jdbcType=VARCHAR},
+      </if>
+      <if test="tickets != null" >
+        tickets = #{tickets,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="days != null" >
+        days = #{days,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qf.j1902.pojo.TravelMsg" >
+    update travel_msg
+    set commodity = #{commodity,jdbcType=VARCHAR},
+      commodity_information = #{commodityInformation,jdbcType=VARCHAR},
+      images = #{images,jdbcType=VARCHAR},
+      businessmen = #{businessmen,jdbcType=VARCHAR},
+      advisory_telephone = #{advisoryTelephone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      local = #{local,jdbcType=VARCHAR},
+      miaoshu = #{miaoshu,jdbcType=VARCHAR},
+      tickets = #{tickets,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DOUBLE},
+      days = #{days,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

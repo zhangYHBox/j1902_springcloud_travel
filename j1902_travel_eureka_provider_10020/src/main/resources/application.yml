@@ -1,0 +1,20 @@
+
+server:
+  port: 10020
+spring:
+  application:
+    name: beyond-server-provider
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/beyond06?characterEncoding=utf-8&serverTimezone=UTC
+    username: root
+    password:
+    type: com.alibaba.druid.pool.DruidDataSource
+eureka:
+  client:
+    service-url:
+      defaultZone:   http://10.12.159.32:8766/eureka       # http://localhost:9099/eureka        http://10.12.159.122:8761/eureka  http://10.12.159.32:8766/eureka
+    register-with-eureka: true
+mybatis:
+  mapper-locations: classpath:mapping/*.xml
+  type-aliases-package: com.qf.j1902.pojo
