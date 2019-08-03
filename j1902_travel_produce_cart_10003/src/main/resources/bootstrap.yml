@@ -1,0 +1,12 @@
+
+spring:
+  application:
+    name: produce-cart
+  cloud:
+    config:
+      uri: http://10.12.159.122:9090
+      fail-fast: true
+  profiles:
+    active: xpsecond
+
+

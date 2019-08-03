@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qf.j1902.mapper.ContactUserMapper" >
+  <resultMap id="BaseResultMap" type="com.qf.j1902.entity.ContactUser" >
+    <id column="contact_id" property="contactId" jdbcType="INTEGER" />
+    <result column="contact_name" property="contactName" jdbcType="VARCHAR" />
+    <result column="contact_tell" property="contactTell" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    contact_id, contact_name, contact_tell
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qf.j1902.entity.ContactUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from contact_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from contact_user
+    where contact_id = #{contactId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from contact_user
+    where contact_id = #{contactId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.qf.j1902.entity.ContactUserExample" >
+    delete from contact_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.qf.j1902.entity.ContactUser" >
+    insert into contact_user (contact_id, contact_name, contact_tell
+      )
+    values (#{contactId,jdbcType=INTEGER}, #{contactName,jdbcType=VARCHAR}, #{contactTell,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective"  useGeneratedKeys="true" keyProperty="contactId" parameterType="com.qf.j1902.entity.ContactUser" >
+    insert into contact_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="contactId != null" >
+        contact_id,
+      </if>
+      <if test="contactName != null" >
+        contact_name,
+      </if>
+      <if test="contactTell != null" >
+        contact_tell,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="contactId != null" >
+        #{contactId,jdbcType=INTEGER},
+      </if>
+      <if test="contactName != null" >
+        #{contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactTell != null" >
+        #{contactTell,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.qf.j1902.entity.ContactUserExample" resultType="java.lang.Integer" >
+    select count(*) from contact_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update contact_user
+    <set >
+      <if test="record.contactId != null" >
+        contact_id = #{record.contactId,jdbcType=INTEGER},
+      </if>
+      <if test="record.contactName != null" >
+        contact_name = #{record.contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactTell != null" >
+        contact_tell = #{record.contactTell,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update contact_user
+    set contact_id = #{record.contactId,jdbcType=INTEGER},
+      contact_name = #{record.contactName,jdbcType=VARCHAR},
+      contact_tell = #{record.contactTell,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qf.j1902.entity.ContactUser" >
+    update contact_user
+    <set >
+      <if test="contactName != null" >
+        contact_name = #{contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactTell != null" >
+        contact_tell = #{contactTell,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where contact_id = #{contactId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qf.j1902.entity.ContactUser" >
+    update contact_user
+    set contact_name = #{contactName,jdbcType=VARCHAR},
+      contact_tell = #{contactTell,jdbcType=VARCHAR}
+    where contact_id = #{contactId,jdbcType=INTEGER}
+  </update>
+</mapper>

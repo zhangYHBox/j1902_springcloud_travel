@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qf.j1902.mapper.TripContactUserinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.qf.j1902.entity.TripContactUserinfo" >
+    <id column="trip_id" property="tripId" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="userinfo_id" property="userinfoId" jdbcType="INTEGER" />
+    <result column="gid" property="gid" jdbcType="INTEGER" />
+    <result column="contact_id" property="contactId" jdbcType="INTEGER" />
+    <result column="rid" property="rid" jdbcType="INTEGER" />
+    <result column="cid" property="cid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    trip_id, uid, sid, userinfo_id, gid, contact_id, rid, cid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qf.j1902.entity.TripContactUserinfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from trip_contact_userinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from trip_contact_userinfo
+    where trip_id = #{tripId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from trip_contact_userinfo
+    where trip_id = #{tripId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.qf.j1902.entity.TripContactUserinfoExample" >
+    delete from trip_contact_userinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.qf.j1902.entity.TripContactUserinfo" >
+    insert into trip_contact_userinfo (trip_id, uid, sid, 
+      userinfo_id, gid, contact_id, 
+      rid, cid)
+    values (#{tripId,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{sid,jdbcType=INTEGER}, 
+      #{userinfoId,jdbcType=INTEGER}, #{gid,jdbcType=INTEGER}, #{contactId,jdbcType=INTEGER}, 
+      #{rid,jdbcType=INTEGER}, #{cid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective"  useGeneratedKeys="true" keyProperty="tripId" parameterType="com.qf.j1902.entity.TripContactUserinfo" >
+    insert into trip_contact_userinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tripId != null" >
+        trip_id,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="userinfoId != null" >
+        userinfo_id,
+      </if>
+      <if test="gid != null" >
+        gid,
+      </if>
+      <if test="contactId != null" >
+        contact_id,
+      </if>
+      <if test="rid != null" >
+        rid,
+      </if>
+      <if test="cid != null" >
+        cid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tripId != null" >
+        #{tripId,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="userinfoId != null" >
+        #{userinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="gid != null" >
+        #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="contactId != null" >
+        #{contactId,jdbcType=INTEGER},
+      </if>
+      <if test="rid != null" >
+        #{rid,jdbcType=INTEGER},
+      </if>
+      <if test="cid != null" >
+        #{cid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.qf.j1902.entity.TripContactUserinfoExample" resultType="java.lang.Integer" >
+    select count(*) from trip_contact_userinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update trip_contact_userinfo
+    <set >
+      <if test="record.tripId != null" >
+        trip_id = #{record.tripId,jdbcType=INTEGER},
+      </if>
+      <if test="record.uid != null" >
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.sid != null" >
+        sid = #{record.sid,jdbcType=INTEGER},
+      </if>
+      <if test="record.userinfoId != null" >
+        userinfo_id = #{record.userinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="record.gid != null" >
+        gid = #{record.gid,jdbcType=INTEGER},
+      </if>
+      <if test="record.contactId != null" >
+        contact_id = #{record.contactId,jdbcType=INTEGER},
+      </if>
+      <if test="record.rid != null" >
+        rid = #{record.rid,jdbcType=INTEGER},
+      </if>
+      <if test="record.cid != null" >
+        cid = #{record.cid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update trip_contact_userinfo
+    set trip_id = #{record.tripId,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=INTEGER},
+      sid = #{record.sid,jdbcType=INTEGER},
+      userinfo_id = #{record.userinfoId,jdbcType=INTEGER},
+      gid = #{record.gid,jdbcType=INTEGER},
+      contact_id = #{record.contactId,jdbcType=INTEGER},
+      rid = #{record.rid,jdbcType=INTEGER},
+      cid = #{record.cid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qf.j1902.entity.TripContactUserinfo" >
+    update trip_contact_userinfo
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="sid != null" >
+        sid = #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="userinfoId != null" >
+        userinfo_id = #{userinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="gid != null" >
+        gid = #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="contactId != null" >
+        contact_id = #{contactId,jdbcType=INTEGER},
+      </if>
+      <if test="rid != null" >
+        rid = #{rid,jdbcType=INTEGER},
+      </if>
+      <if test="cid != null" >
+        cid = #{cid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where trip_id = #{tripId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qf.j1902.entity.TripContactUserinfo" >
+    update trip_contact_userinfo
+    set uid = #{uid,jdbcType=INTEGER},
+      sid = #{sid,jdbcType=INTEGER},
+      userinfo_id = #{userinfoId,jdbcType=INTEGER},
+      gid = #{gid,jdbcType=INTEGER},
+      contact_id = #{contactId,jdbcType=INTEGER},
+      rid = #{rid,jdbcType=INTEGER},
+      cid = #{cid,jdbcType=INTEGER}
+    where trip_id = #{tripId,jdbcType=INTEGER}
+  </update>
+</mapper>

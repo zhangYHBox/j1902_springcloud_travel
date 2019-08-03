@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qf.j1902.mapper.UserinfoTicketMapper" >
+  <resultMap id="BaseResultMap" type="com.qf.j1902.entity.UserinfoTicket" >
+    <id column="userinfo_id" property="userinfoId" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="userinfo_name" property="userinfoName" jdbcType="VARCHAR" />
+    <result column="userinfo_Idcard" property="userinfoIdcard" jdbcType="VARCHAR" />
+    <result column="userinfo_tell" property="userinfoTell" jdbcType="VARCHAR" />
+    <result column="userinfo_gender" property="userinfoGender" jdbcType="VARCHAR" />
+    <result column="userinfo_age" property="userinfoAge" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    userinfo_id, uid, userinfo_name, userinfo_Idcard, userinfo_tell, userinfo_gender, 
+    userinfo_age
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qf.j1902.entity.UserinfoTicketExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from userinfo_ticket
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from userinfo_ticket
+    where userinfo_id = #{userinfoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from userinfo_ticket
+    where userinfo_id = #{userinfoId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.qf.j1902.entity.UserinfoTicketExample" >
+    delete from userinfo_ticket
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.qf.j1902.entity.UserinfoTicket" >
+    insert into userinfo_ticket (userinfo_id, uid, userinfo_name, 
+      userinfo_Idcard, userinfo_tell, userinfo_gender, 
+      userinfo_age)
+    values (#{userinfoId,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{userinfoName,jdbcType=VARCHAR}, 
+      #{userinfoIdcard,jdbcType=VARCHAR}, #{userinfoTell,jdbcType=VARCHAR}, #{userinfoGender,jdbcType=VARCHAR}, 
+      #{userinfoAge,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="userinfoId" parameterType="com.qf.j1902.entity.UserinfoTicket" >
+    insert into userinfo_ticket
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userinfoId != null" >
+        userinfo_id,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="userinfoName != null" >
+        userinfo_name,
+      </if>
+      <if test="userinfoIdcard != null" >
+        userinfo_Idcard,
+      </if>
+      <if test="userinfoTell != null" >
+        userinfo_tell,
+      </if>
+      <if test="userinfoGender != null" >
+        userinfo_gender,
+      </if>
+      <if test="userinfoAge != null" >
+        userinfo_age,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userinfoId != null" >
+        #{userinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="userinfoName != null" >
+        #{userinfoName,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfoIdcard != null" >
+        #{userinfoIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfoTell != null" >
+        #{userinfoTell,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfoGender != null" >
+        #{userinfoGender,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfoAge != null" >
+        #{userinfoAge,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.qf.j1902.entity.UserinfoTicketExample" resultType="java.lang.Integer" >
+    select count(*) from userinfo_ticket
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update userinfo_ticket
+    <set >
+      <if test="record.userinfoId != null" >
+        userinfo_id = #{record.userinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="record.uid != null" >
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.userinfoName != null" >
+        userinfo_name = #{record.userinfoName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userinfoIdcard != null" >
+        userinfo_Idcard = #{record.userinfoIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userinfoTell != null" >
+        userinfo_tell = #{record.userinfoTell,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userinfoGender != null" >
+        userinfo_gender = #{record.userinfoGender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userinfoAge != null" >
+        userinfo_age = #{record.userinfoAge,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update userinfo_ticket
+    set userinfo_id = #{record.userinfoId,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=INTEGER},
+      userinfo_name = #{record.userinfoName,jdbcType=VARCHAR},
+      userinfo_Idcard = #{record.userinfoIdcard,jdbcType=VARCHAR},
+      userinfo_tell = #{record.userinfoTell,jdbcType=VARCHAR},
+      userinfo_gender = #{record.userinfoGender,jdbcType=VARCHAR},
+      userinfo_age = #{record.userinfoAge,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qf.j1902.entity.UserinfoTicket" >
+    update userinfo_ticket
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="userinfoName != null" >
+        userinfo_name = #{userinfoName,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfoIdcard != null" >
+        userinfo_Idcard = #{userinfoIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfoTell != null" >
+        userinfo_tell = #{userinfoTell,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfoGender != null" >
+        userinfo_gender = #{userinfoGender,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfoAge != null" >
+        userinfo_age = #{userinfoAge,jdbcType=INTEGER},
+      </if>
+    </set>
+    where userinfo_id = #{userinfoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qf.j1902.entity.UserinfoTicket" >
+    update userinfo_ticket
+    set uid = #{uid,jdbcType=INTEGER},
+      userinfo_name = #{userinfoName,jdbcType=VARCHAR},
+      userinfo_Idcard = #{userinfoIdcard,jdbcType=VARCHAR},
+      userinfo_tell = #{userinfoTell,jdbcType=VARCHAR},
+      userinfo_gender = #{userinfoGender,jdbcType=VARCHAR},
+      userinfo_age = #{userinfoAge,jdbcType=INTEGER}
+    where userinfo_id = #{userinfoId,jdbcType=INTEGER}
+  </update>
+</mapper>
